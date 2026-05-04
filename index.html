@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Birthday Surprise ❤️</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@800&display=swap');
 
-        /* Poore page ko har tarah se lock kar diya */
+        /* Poore viewport ko lock karne ke liye */
         html, body {
             margin: 0;
             padding: 0;
@@ -16,8 +16,8 @@
             overflow: hidden;
             background-color: #000;
             font-family: 'Montserrat', sans-serif;
-            position: fixed; 
-            touch-action: none;
+            position: fixed; /* Screen lock */
+            touch-action: none; /* Zoom/Scroll block */
         }
 
         #matrix-canvas {
@@ -49,7 +49,7 @@
             z-index: 10;
         }
 
-        /* Image Position Fix: No vibration */
+        /* Image Position: Absolute No-Move Fix */
         .bg-image {
             position: absolute;
             top: 0;
@@ -59,9 +59,10 @@
             object-fit: cover;
             filter: brightness(0.7);
             z-index: -1;
+            pointer-events: none;
         }
 
-        /* Text Lock: Hamesha center rahega */
+        /* Birthday Text: Center Lock */
         .hb-container {
             position: absolute;
             top: 50%;
@@ -70,6 +71,7 @@
             width: 100%;
             text-align: center;
             z-index: 15;
+            pointer-events: none;
         }
 
         .hb-text {
@@ -126,18 +128,25 @@
     <script>
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
+        const mainContent = document.getElementById('main-content');
 
-        // Sab se aham fix: Screen height ko pixel mein lock karna
-        function lockScreen() {
-            const h = window.innerHeight;
-            const w = window.innerWidth;
-            document.body.style.height = h + "px";
-            canvas.width = w;
-            canvas.height = h;
+        // Sab se zaroori function jo screen ko move nahi hone dega
+        function fixEverything() {
+            const vh = window.innerHeight;
+            const vw = window.innerWidth;
+            
+            // Body aur containers ki height pixels mein lock kar di
+            document.body.style.height = vh + 'px';
+            mainContent.style.height = vh + 'px';
+            canvas.width = vw;
+            canvas.height = vh;
         }
-        window.addEventListener('resize', lockScreen);
-        lockScreen();
 
+        window.addEventListener('resize', fixEverything);
+        window.addEventListener('orientationchange', fixEverything);
+        fixEverything();
+
+        // Digital Square Dots Logic
         const dotSize = 4; 
         const spacing = 18; 
         let columns = Math.floor(canvas.width / spacing);
@@ -159,7 +168,6 @@
         let matrixInterval = setInterval(drawDots, 35);
 
         const timerElement = document.getElementById('timer-container');
-        const mainContent = document.getElementById('main-content');
         let count = 3;
 
         function createHearts() {
@@ -188,6 +196,7 @@
             canvas.style.display = 'none';
             timerElement.style.display = 'none';
             mainContent.style.display = 'block';
+            fixEverything(); // Re-check height to be sure
         }
     </script>
 </body>
