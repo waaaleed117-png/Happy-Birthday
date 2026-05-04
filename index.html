@@ -13,16 +13,24 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            /* Countdown Background: Pinkish Vibe */
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            background-color: #000; /* Matrix effect ke liye background black rakha hai */
             font-family: 'Montserrat', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
+        /* Matrix Canvas - Jo dots nichay giray ga */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
         /* Countdown Container - Centered */
         #timer-container {
+            position: relative;
             font-size: 10rem;
             color: #fff;
             text-shadow: 0 0 30px #ff1493, 0 0 60px #ff69b4;
@@ -38,7 +46,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            z-index: 10;
+            z-index: 30;
         }
 
         /* Background Image Setup - FULL LANDSCAPE */
@@ -46,7 +54,7 @@
             width: 100%;
             height: 100%;
             background-image: url('https://i.ibb.co/B2qSwnMB/hussain-image.jpg'); 
-            background-size: cover; /* Is se image laptop par poori fit ay gi */
+            background-size: cover; 
             background-position: center;
             background-repeat: no-repeat;
             filter: brightness(0.8);
@@ -66,6 +74,7 @@
             width: 100%;
             height: 100%;
             text-align: center;
+            background: rgba(0,0,0,0.2); /* Image par text clear dikhne ke liye */
         }
 
         .hb-text {
@@ -76,7 +85,6 @@
             animation: fadeInScale 2s ease-out forwards;
         }
 
-        /* Animations */
         @keyframes bounceIn {
             0% { transform: scale(0.3); opacity: 0; }
             50% { transform: scale(1.05); opacity: 1; }
@@ -95,7 +103,7 @@
             text-shadow: 0 0 10px rgba(255, 20, 147, 0.7);
             pointer-events: none;
             animation: floatUp 5s linear forwards;
-            z-index: 15;
+            z-index: 35;
         }
 
         @keyframes floatUp {
@@ -111,6 +119,9 @@
 </head>
 <body>
 
+    <!-- Matrix Rain Background -->
+    <canvas id="matrix-canvas"></canvas>
+
     <div id="timer-container">3</div>
 
     <div id="main-content">
@@ -121,6 +132,44 @@
     </div>
 
     <script>
+        // --- MATRIX RAIN LOGIC ---
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Characters jo nichay girain gay (Square dots jaisa look dene ke liye)
+        const charList = "010182739456%#*+-";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for (let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#ff1493"; // Pink color dots
+            ctx.font = fontSize + "px monospace";
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = charList.charAt(Math.floor(Math.random() * charList.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        let matrixInterval = setInterval(drawMatrix, 35);
+
+        // --- EXISTING LOGIC ---
         const timerElement = document.getElementById('timer-container');
         const mainContent = document.getElementById('main-content');
         const bgImage = document.querySelector('.bg-image');
@@ -137,7 +186,6 @@
             setTimeout(() => heart.remove(), 5000);
         }
 
-        // Starts hearts for both screens
         const heartInterval = setInterval(createHearts, 300);
 
         const countdown = setInterval(() => {
@@ -151,12 +199,21 @@
         }, 1000);
 
         function revealSurprise() {
+            // Stop matrix and hide it
+            clearInterval(matrixInterval);
+            canvas.style.display = 'none';
+            
             timerElement.style.display = 'none';
             mainContent.style.display = 'block';
             setTimeout(() => {
                 bgImage.style.transform = 'scale(1)';
             }, 10);
         }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
     </script>
 </body>
 </html>
