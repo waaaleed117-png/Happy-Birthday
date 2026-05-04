@@ -7,7 +7,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@800&display=swap');
 
-        /* Poore page ko lock kar diya hai taakay mobile par hile na */
+        /* Poore viewport ko lock kar dena taakay zara sa bhi hile na */
         html, body {
             margin: 0;
             padding: 0;
@@ -16,15 +16,15 @@
             overflow: hidden;
             background-color: #000;
             font-family: 'Montserrat', sans-serif;
-            position: fixed; 
-            touch-action: none;
+            position: fixed; /* Screen lock */
+            touch-action: none; /* Zoom aur scroll block */
         }
 
         #matrix-canvas {
             position: absolute;
             top: 0;
             left: 0;
-            z-index: 1;
+            z-index: 5;
             width: 100%;
             height: 100%;
         }
@@ -45,32 +45,33 @@
             display: none;
             width: 100%;
             height: 100%;
-            position: relative;
-            z-index: 30;
-        }
-
-        /* Image position lock: Ab ye left/right nahi hilegi */
-        .bg-image {
-            width: 100vw;
-            height: 100vh;
-            background-image: url('https://i.ibb.co/B2qSwnMB/hussain-image.jpg'); 
-            background-size: cover; 
-            background-position: center center;
-            background-repeat: no-repeat;
-            filter: brightness(0.7);
             position: absolute;
             top: 0;
             left: 0;
+            z-index: 10;
         }
 
-        /* Text Container: Hamesha center rahega */
+        /* Image Position: Permanent Fixed */
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Image fit karega bina stretch hue */
+            filter: brightness(0.7);
+            z-index: -1;
+        }
+
+        /* Happy Birthday Position: Absolute center lock */
         .hb-container {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 90%;
+            width: 100%;
             text-align: center;
+            z-index: 15;
         }
 
         .hb-text {
@@ -78,6 +79,7 @@
             font-size: 4rem;
             color: white;
             margin: 0;
+            padding: 0 10px;
             text-shadow: 0 0 25px #ff1493, 0 0 50px #ff69b4;
             animation: fadeInScale 1.5s ease-out forwards;
         }
@@ -99,7 +101,7 @@
             text-shadow: 0 0 10px rgba(255, 20, 147, 0.7);
             pointer-events: none;
             animation: floatUp 5s linear forwards;
-            z-index: 35;
+            z-index: 100;
         }
 
         @keyframes floatUp {
@@ -119,7 +121,7 @@
     <div id="timer-container">3</div>
 
     <div id="main-content">
-        <div class="bg-image"></div>
+        <img src="https://i.ibb.co/B2qSwnMB/hussain-image.jpg" alt="Background" class="bg-image">
         <div class="hb-container">
             <h1 class="hb-text">Happy Birthday! 🎀✨</h1>
         </div>
