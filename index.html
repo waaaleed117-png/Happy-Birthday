@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Vibe ❤️</title>
+    <title>Birthday Surprise ❤️</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@800&display=swap');
 
@@ -13,43 +13,47 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: #000;
             font-family: 'Montserrat', sans-serif;
         }
 
-        /* Animated Background Particles */
-        .bg-circle {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            z-index: 1;
-            filter: blur(10px);
-            animation: move 20s infinite linear;
+        /* Background Image Setup */
+        .bg-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Aapki di gayi image */
+            background-image: url('https://i.ibb.co/60gfNXCF/your-image.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: brightness(0.7); /* Taakay text saaf nazar aaye */
+            z-index: -1;
+            transition: transform 2s ease;
         }
 
-        /* Glassmorphism Timer Box */
-        #timer-box {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            padding: 50px 80px;
-            border-radius: 30px;
-            box-shadow: 0 25px 45px rgba(0,0,0,0.1);
-            text-align: center;
+        /* Full Screen Center Container */
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* Countdown Style - Direct on BG */
+        #timer-container {
+            font-size: 10rem;
+            color: #fff;
+            text-shadow: 0 0 30px #ff1493, 0 0 60px #ff69b4;
+            animation: bounceIn 1s ease-in-out infinite;
             z-index: 10;
         }
 
-        #timer-container {
-            font-size: 12rem;
-            color: #fff;
-            text-shadow: 0 0 20px #ff1493, 0 0 40px #ff69b4;
-            animation: zoomIn 1s ease-in-out infinite;
-        }
-
-        /* Birthday Section */
+        /* Birthday Text - Chota size aur New Animation */
         #main-content {
             display: none;
             text-align: center;
@@ -58,63 +62,65 @@
 
         .hb-text {
             font-family: 'Dancing Script', cursive;
-            font-size: 7rem;
+            font-size: 4.5rem; /* Size thora kam kar diya */
             color: white;
-            text-shadow: 2px 2px 15px #ff1493, 0 0 25px #ff69b4;
-            animation: heartBeat 2s infinite;
+            text-shadow: 0 0 20px #ff1493;
+            animation: fadeInScale 2.5s ease-out forwards;
         }
 
         /* Animations */
-        @keyframes zoomIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            50% { transform: scale(1.1); opacity: 1; }
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; }
+            70% { transform: scale(0.9); }
             100% { transform: scale(1); opacity: 0; }
         }
 
-        @keyframes heartBeat {
-            0% { transform: scale(1); }
-            14% { transform: scale(1.1); }
-            28% { transform: scale(1); }
-            42% { transform: scale(1.1); }
-            70% { transform: scale(1); }
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
-        @keyframes move {
-            from { transform: translate(0, 0); }
-            to { transform: translate(100vw, 100vh); }
-        }
-
+        /* Floating Hearts */
         .heart {
             position: absolute;
             color: #ff1493;
-            animation: floatUp 4s linear forwards;
+            text-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
+            pointer-events: none;
+            animation: floatUp 5s linear forwards;
             z-index: 5;
         }
 
         @keyframes floatUp {
-            to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Mobile Optimization (just in case) */
+        @media (max-width: 768px) {
+            .hb-text { font-size: 3rem; }
+            #timer-container { font-size: 7rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Floating Background Elements -->
-    <div class="bg-circle" style="width: 100px; height: 100px; top: 10%; left: 10%;"></div>
-    <div class="bg-circle" style="width: 150px; height: 150px; bottom: 20%; right: 15%;"></div>
 
-    <!-- Timer Box -->
-    <div id="timer-box">
+    <div class="bg-image"></div>
+
+    <div class="container">
+        <!-- 3-Second Timer -->
         <div id="timer-container">3</div>
-    </div>
 
-    <!-- Main Surprise -->
-    <div id="main-content">
-        <h1 class="hb-text">Happy Birthday! 🎀✨</h1>
+        <!-- Main Surprise -->
+        <div id="main-content">
+            <h1 class="hb-text">Happy Birthday! 🎀✨</h1>
+        </div>
     </div>
 
     <script>
         const timerElement = document.getElementById('timer-container');
-        const timerBox = document.getElementById('timer-box');
         const mainContent = document.getElementById('main-content');
+        const bgImage = document.querySelector('.bg-image');
         let count = 3;
 
         const countdown = setInterval(() => {
@@ -123,8 +129,10 @@
                 timerElement.innerText = count;
             } else {
                 clearInterval(countdown);
-                timerBox.style.display = 'none';
+                timerElement.style.display = 'none';
                 mainContent.style.display = 'block';
+                // Background zoom effect on reveal
+                bgImage.style.transform = 'scale(1.1)';
                 createHearts();
             }
         }, 1000);
@@ -135,11 +143,11 @@
                 heart.innerHTML = '💖';
                 heart.classList.add('heart');
                 heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.top = '100vh';
                 heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+                heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
                 document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 4000);
-            }, 150);
+                setTimeout(() => heart.remove(), 5000);
+            }, 300);
         }
     </script>
 </body>
