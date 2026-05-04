@@ -13,14 +13,14 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: #000; /* Matrix effect ke liye background black rakha hai */
+            background-color: #000;
             font-family: 'Montserrat', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* Matrix Canvas - Jo dots nichay giray ga */
+        /* Canvas for the Square Dots Effect */
         #matrix-canvas {
             position: fixed;
             top: 0;
@@ -28,7 +28,6 @@
             z-index: 1;
         }
 
-        /* Countdown Container - Centered */
         #timer-container {
             position: relative;
             font-size: 10rem;
@@ -38,7 +37,6 @@
             z-index: 20;
         }
 
-        /* Main Surprise Section */
         #main-content {
             display: none;
             width: 100%;
@@ -49,7 +47,6 @@
             z-index: 30;
         }
 
-        /* Background Image Setup - FULL LANDSCAPE */
         .bg-image {
             width: 100%;
             height: 100%;
@@ -66,7 +63,6 @@
             transition: transform 2s ease;
         }
 
-        /* Birthday Text */
         .hb-container {
             display: flex;
             justify-content: center;
@@ -74,7 +70,7 @@
             width: 100%;
             height: 100%;
             text-align: center;
-            background: rgba(0,0,0,0.2); /* Image par text clear dikhne ke liye */
+            background: rgba(0,0,0,0.2);
         }
 
         .hb-text {
@@ -96,7 +92,6 @@
             100% { opacity: 1; transform: scale(1); }
         }
 
-        /* Floating Hearts */
         .heart {
             position: absolute;
             color: #ff1493;
@@ -119,7 +114,6 @@
 </head>
 <body>
 
-    <!-- Matrix Rain Background -->
     <canvas id="matrix-canvas"></canvas>
 
     <div id="timer-container">3</div>
@@ -132,44 +126,43 @@
     </div>
 
     <script>
-        // --- MATRIX RAIN LOGIC ---
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        // Characters jo nichay girain gay (Square dots jaisa look dene ke liye)
-        const charList = "010182739456%#*+-";
-        const fontSize = 16;
-        const columns = canvas.width / fontSize;
+        // Digital Square Dots Logic
+        const dotSize = 4; // Square dots ka size
+        const spacing = 15; // Dots ke darmiyan gap
+        const columns = Math.floor(canvas.width / spacing);
         const drops = [];
 
         for (let x = 0; x < columns; x++) {
-            drops[x] = 1;
+            drops[x] = Math.random() * -100; 
         }
 
-        function drawMatrix() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        function drawDots() {
+            // Trail effect (Pichlay dots ko halka black karna)
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            ctx.fillStyle = "#ff1493"; // Pink color dots
-            ctx.font = fontSize + "px monospace";
+            ctx.fillStyle = "#ff1493"; // Square dots color
 
             for (let i = 0; i < drops.length; i++) {
-                const text = charList.charAt(Math.floor(Math.random() * charList.length));
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                // Drawing actual squares instead of characters
+                ctx.fillRect(i * spacing, drops[i] * spacing, dotSize, dotSize);
 
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                if (drops[i] * spacing > canvas.height && Math.random() > 0.975) {
                     drops[i] = 0;
                 }
                 drops[i]++;
             }
         }
 
-        let matrixInterval = setInterval(drawMatrix, 35);
+        let matrixInterval = setInterval(drawDots, 30);
 
-        // --- EXISTING LOGIC ---
+        // Countdown and Content Logic
         const timerElement = document.getElementById('timer-container');
         const mainContent = document.getElementById('main-content');
         const bgImage = document.querySelector('.bg-image');
@@ -186,7 +179,7 @@
             setTimeout(() => heart.remove(), 5000);
         }
 
-        const heartInterval = setInterval(createHearts, 300);
+        setInterval(createHearts, 300);
 
         const countdown = setInterval(() => {
             count--;
@@ -199,10 +192,8 @@
         }, 1000);
 
         function revealSurprise() {
-            // Stop matrix and hide it
             clearInterval(matrixInterval);
             canvas.style.display = 'none';
-            
             timerElement.style.display = 'none';
             mainContent.style.display = 'block';
             setTimeout(() => {
