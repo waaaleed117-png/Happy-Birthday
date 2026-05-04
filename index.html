@@ -7,7 +7,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@800&display=swap');
 
-        /* Poore viewport ko lock kar dena taakay zara sa bhi hile na */
+        /* Poore page ko har tarah se lock kar diya */
         html, body {
             margin: 0;
             padding: 0;
@@ -16,8 +16,8 @@
             overflow: hidden;
             background-color: #000;
             font-family: 'Montserrat', sans-serif;
-            position: fixed; /* Screen lock */
-            touch-action: none; /* Zoom aur scroll block */
+            position: fixed; 
+            touch-action: none;
         }
 
         #matrix-canvas {
@@ -25,8 +25,6 @@
             top: 0;
             left: 0;
             z-index: 5;
-            width: 100%;
-            height: 100%;
         }
 
         #timer-container {
@@ -51,19 +49,19 @@
             z-index: 10;
         }
 
-        /* Image Position: Permanent Fixed */
+        /* Image Position Fix: No vibration */
         .bg-image {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Image fit karega bina stretch hue */
+            object-fit: cover;
             filter: brightness(0.7);
             z-index: -1;
         }
 
-        /* Happy Birthday Position: Absolute center lock */
+        /* Text Lock: Hamesha center rahega */
         .hb-container {
             position: absolute;
             top: 50%;
@@ -79,7 +77,6 @@
             font-size: 4rem;
             color: white;
             margin: 0;
-            padding: 0 10px;
             text-shadow: 0 0 25px #ff1493, 0 0 50px #ff69b4;
             animation: fadeInScale 1.5s ease-out forwards;
         }
@@ -98,15 +95,14 @@
         .heart {
             position: absolute;
             color: #ff1493;
-            text-shadow: 0 0 10px rgba(255, 20, 147, 0.7);
+            z-index: 100;
             pointer-events: none;
             animation: floatUp 5s linear forwards;
-            z-index: 100;
         }
 
         @keyframes floatUp {
-            0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+            0% { transform: translateY(110vh); opacity: 1; }
+            100% { transform: translateY(-10vh); opacity: 0; }
         }
 
         @media (max-width: 768px) {
@@ -131,14 +127,17 @@
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
 
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        // Sab se aham fix: Screen height ko pixel mein lock karna
+        function lockScreen() {
+            const h = window.innerHeight;
+            const w = window.innerWidth;
+            document.body.style.height = h + "px";
+            canvas.width = w;
+            canvas.height = h;
         }
-        window.addEventListener('resize', resize);
-        resize();
+        window.addEventListener('resize', lockScreen);
+        lockScreen();
 
-        // Digital Square Dots Logic
         const dotSize = 4; 
         const spacing = 18; 
         let columns = Math.floor(canvas.width / spacing);
@@ -166,10 +165,9 @@
         function createHearts() {
             const heart = document.createElement('div');
             heart.innerHTML = '💖';
-            heart.classList.add('heart');
+            heart.className = 'heart';
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.fontSize = Math.random() * 15 + 20 + 'px';
-            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
             document.body.appendChild(heart);
             setTimeout(() => heart.remove(), 5000);
         }
