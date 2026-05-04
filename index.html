@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Surprise ❤️</title>
+    <title>Birthday Vibe ❤️</title>
     <style>
-        /* Aesthetic Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@800&display=swap');
 
         body, html {
             margin: 0;
@@ -14,31 +13,43 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            /* Pinkish Aesthetic Gradient */
-            background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
-            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
+            font-family: 'Montserrat', sans-serif;
         }
 
-        /* 3-Sec Timer Styling */
-        #timer-container {
+        /* Animated Background Particles */
+        .bg-circle {
             position: absolute;
-            font-size: 10rem;
-            font-weight: 600;
-            text-shadow: 0 10px 30px rgba(255, 105, 180, 0.5);
-            animation: pulse 1s infinite;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            z-index: 1;
+            filter: blur(10px);
+            animation: move 20s infinite linear;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.7; }
-            100% { transform: scale(1); opacity: 1; }
+        /* Glassmorphism Timer Box */
+        #timer-box {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            padding: 50px 80px;
+            border-radius: 30px;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.1);
+            text-align: center;
+            z-index: 10;
         }
 
-        /* Main Surprise Content */
+        #timer-container {
+            font-size: 12rem;
+            color: #fff;
+            text-shadow: 0 0 20px #ff1493, 0 0 40px #ff69b4;
+            animation: zoomIn 1s ease-in-out infinite;
+        }
+
+        /* Birthday Section */
         #main-content {
             display: none;
             text-align: center;
@@ -47,84 +58,88 @@
 
         .hb-text {
             font-family: 'Dancing Script', cursive;
-            font-size: 6rem;
-            margin-bottom: 10px;
-            color: #fff;
-            text-shadow: 0 0 20px #ff69b4, 0 0 40px #ff1493;
-            animation: floating 3s ease-in-out infinite;
+            font-size: 7rem;
+            color: white;
+            text-shadow: 2px 2px 15px #ff1493, 0 0 25px #ff69b4;
+            animation: heartBeat 2s infinite;
         }
 
-        @keyframes floating {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+        /* Animations */
+        @keyframes zoomIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0; }
         }
 
-        .sub-text {
-            font-size: 1.8rem;
-            font-weight: 300;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 10px 20px;
-            border-radius: 50px;
-            backdrop-filter: blur(5px);
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.1); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.1); }
+            70% { transform: scale(1); }
         }
 
-        /* Floating Hearts Animation */
+        @keyframes move {
+            from { transform: translate(0, 0); }
+            to { transform: translate(100vw, 100vh); }
+        }
+
         .heart {
             position: absolute;
-            color: #ff69b4;
-            font-size: 25px;
-            pointer-events: none;
-            animation: floatUp 5s linear forwards;
-            opacity: 0.8;
+            color: #ff1493;
+            animation: floatUp 4s linear forwards;
+            z-index: 5;
         }
 
         @keyframes floatUp {
-            0% { transform: translateY(110vh) translateX(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-10vh) translateX(100px) rotate(360deg); opacity: 0; }
+            to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
+    <!-- Floating Background Elements -->
+    <div class="bg-circle" style="width: 100px; height: 100px; top: 10%; left: 10%;"></div>
+    <div class="bg-circle" style="width: 150px; height: 150px; bottom: 20%; right: 15%;"></div>
 
-    <div id="timer-container">3</div>
+    <!-- Timer Box -->
+    <div id="timer-box">
+        <div id="timer-container">3</div>
+    </div>
 
+    <!-- Main Surprise -->
     <div id="main-content">
-        <h1 class="hb-text">Happy Birthday! 🎂</h1>
-        <p class="sub-text">To the most beautiful girl in the world ❤️</p>
+        <h1 class="hb-text">Happy Birthday! 🎀✨</h1>
     </div>
 
     <script>
         const timerElement = document.getElementById('timer-container');
+        const timerBox = document.getElementById('timer-box');
         const mainContent = document.getElementById('main-content');
         let count = 3;
 
-        // Timer Logic
         const countdown = setInterval(() => {
             count--;
             if (count > 0) {
                 timerElement.innerText = count;
             } else {
                 clearInterval(countdown);
-                timerElement.style.display = 'none';
+                timerBox.style.display = 'none';
                 mainContent.style.display = 'block';
-                startHearts(); // Start heart shower
+                createHearts();
             }
         }, 1000);
 
-        // Heart Animation Logic
-        function startHearts() {
+        function createHearts() {
             setInterval(() => {
                 const heart = document.createElement('div');
-                heart.innerHTML = '❤️'; // Aap 💖 ya ✨ bhi use kar sakte hain
+                heart.innerHTML = '💖';
                 heart.classList.add('heart');
                 heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
-                heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                heart.style.top = '100vh';
+                heart.style.fontSize = Math.random() * 20 + 20 + 'px';
                 document.body.appendChild(heart);
-                
-                // Remove heart after it floats away
-                setTimeout(() => heart.remove(), 6000);
-            }, 200);
+                setTimeout(() => heart.remove(), 4000);
+            }, 150);
         }
     </script>
 </body>
