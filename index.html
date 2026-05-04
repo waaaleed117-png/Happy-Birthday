@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Surprise ❤️</title>
+    <style>
+        /* Aesthetic Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            /* Pinkish Aesthetic Gradient */
+            background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        /* 3-Sec Timer Styling */
+        #timer-container {
+            position: absolute;
+            font-size: 10rem;
+            font-weight: 600;
+            text-shadow: 0 10px 30px rgba(255, 105, 180, 0.5);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Main Surprise Content */
+        #main-content {
+            display: none;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .hb-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 6rem;
+            margin-bottom: 10px;
+            color: #fff;
+            text-shadow: 0 0 20px #ff69b4, 0 0 40px #ff1493;
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .sub-text {
+            font-size: 1.8rem;
+            font-weight: 300;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Floating Hearts Animation */
+        .heart {
+            position: absolute;
+            color: #ff69b4;
+            font-size: 25px;
+            pointer-events: none;
+            animation: floatUp 5s linear forwards;
+            opacity: 0.8;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) translateX(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) translateX(100px) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="timer-container">3</div>
+
+    <div id="main-content">
+        <h1 class="hb-text">Happy Birthday! 🎂</h1>
+        <p class="sub-text">To the most beautiful girl in the world ❤️</p>
+    </div>
+
+    <script>
+        const timerElement = document.getElementById('timer-container');
+        const mainContent = document.getElementById('main-content');
+        let count = 3;
+
+        // Timer Logic
+        const countdown = setInterval(() => {
+            count--;
+            if (count > 0) {
+                timerElement.innerText = count;
+            } else {
+                clearInterval(countdown);
+                timerElement.style.display = 'none';
+                mainContent.style.display = 'block';
+                startHearts(); // Start heart shower
+            }
+        }, 1000);
+
+        // Heart Animation Logic
+        function startHearts() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️'; // Aap 💖 ya ✨ bhi use kar sakte hain
+                heart.classList.add('heart');
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                document.body.appendChild(heart);
+                
+                // Remove heart after it floats away
+                setTimeout(() => heart.remove(), 6000);
+            }, 200);
+        }
+    </script>
+</body>
+</html>
