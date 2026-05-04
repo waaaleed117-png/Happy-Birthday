@@ -13,7 +13,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            /* Countdown Background: Full Pinkish Vibe */
+            /* Countdown Background: Pinkish Vibe */
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
             font-family: 'Montserrat', sans-serif;
             display: flex;
@@ -39,15 +39,14 @@
             top: 0;
             left: 0;
             z-index: 10;
-            background-color: #000; /* Taakay side borders black rahain agar image fit ho */
         }
 
-        /* Background Image Setup - Full & Fit for Landscape */
+        /* Background Image Setup - FULL LANDSCAPE */
         .bg-image {
             width: 100%;
             height: 100%;
             background-image: url('https://i.ibb.co/B2qSwnMB/hussain-image.jpg'); 
-            background-size: contain; /* Is se image poori nzr ay gi bina katay */
+            background-size: cover; /* Is se image laptop par poori fit ay gi */
             background-position: center;
             background-repeat: no-repeat;
             filter: brightness(0.8);
@@ -81,7 +80,6 @@
         @keyframes bounceIn {
             0% { transform: scale(0.3); opacity: 0; }
             50% { transform: scale(1.05); opacity: 1; }
-            70% { transform: scale(0.9); }
             100% { transform: scale(1); opacity: 0; }
         }
 
@@ -113,10 +111,8 @@
 </head>
 <body>
 
-    <!-- 3-Second Timer -->
     <div id="timer-container">3</div>
 
-    <!-- Main Surprise -->
     <div id="main-content">
         <div class="bg-image"></div>
         <div class="hb-container">
@@ -130,7 +126,6 @@
         const bgImage = document.querySelector('.bg-image');
         let count = 3;
 
-        // Heart shower for both countdown and main page
         function createHearts() {
             const heart = document.createElement('div');
             heart.innerHTML = '💖';
@@ -142,10 +137,9 @@
             setTimeout(() => heart.remove(), 5000);
         }
 
-        // Start hearts from beginning
+        // Starts hearts for both screens
         const heartInterval = setInterval(createHearts, 300);
 
-        // Countdown Logic
         const countdown = setInterval(() => {
             count--;
             if (count > 0) {
@@ -159,7 +153,6 @@
         function revealSurprise() {
             timerElement.style.display = 'none';
             mainContent.style.display = 'block';
-            
             setTimeout(() => {
                 bgImage.style.transform = 'scale(1)';
             }, 10);
