@@ -7,7 +7,8 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@800&display=swap');
 
-        body, html {
+        /* Poore page ko lock kar diya hai taakay mobile par hile na */
+        html, body {
             margin: 0;
             padding: 0;
             width: 100%;
@@ -15,16 +16,12 @@
             overflow: hidden;
             background-color: #000;
             font-family: 'Montserrat', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* Mobile jumping fix */
+            position: fixed; 
             touch-action: none;
         }
 
-        /* Canvas for the Square Dots Effect */
         #matrix-canvas {
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             z-index: 1;
@@ -33,8 +30,11 @@
         }
 
         #timer-container {
-            position: relative;
-            font-size: 10rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8rem;
             color: #fff;
             text-shadow: 0 0 30px #ff1493, 0 0 60px #ff69b4;
             animation: bounceIn 1s ease-in-out infinite;
@@ -44,58 +44,52 @@
         #main-content {
             display: none;
             width: 100%;
-            /* d極 height mobile address bar ka hal hai */
-            height: 100dvh; 
-            position: fixed;
-            top: 0;
-            left: 0;
+            height: 100%;
+            position: relative;
             z-index: 30;
         }
 
+        /* Image position lock: Ab ye left/right nahi hilegi */
         .bg-image {
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             background-image: url('https://i.ibb.co/B2qSwnMB/hussain-image.jpg'); 
             background-size: cover; 
             background-position: center center;
             background-repeat: no-repeat;
-            filter: brightness(0.8);
+            filter: brightness(0.7);
             position: absolute;
             top: 0;
             left: 0;
-            z-index: -1;
-            transform: scale(1.1);
-            /* Mobile transition fix */
-            transition: transform 1.5s ease-out;
         }
 
+        /* Text Container: Hamesha center rahega */
         .hb-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
             text-align: center;
-            background: rgba(0,0,0,0.2);
         }
 
         .hb-text {
             font-family: 'Dancing Script', cursive;
-            font-size: 5rem;
+            font-size: 4rem;
             color: white;
-            padding: 20px;
+            margin: 0;
             text-shadow: 0 0 25px #ff1493, 0 0 50px #ff69b4;
-            animation: fadeInScale 2s ease-out forwards;
+            animation: fadeInScale 1.5s ease-out forwards;
         }
 
         @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); opacity: 1; }
-            100% { transform: scale(1); opacity: 0; }
+            0% { transform: translate(-50%, -50%) scale(0.3); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
         }
 
         @keyframes fadeInScale {
-            0% { opacity: 0; transform: scale(0.5); }
+            0% { opacity: 0; transform: scale(0.8); }
             100% { opacity: 1; transform: scale(1); }
         }
 
@@ -114,17 +108,14 @@
         }
 
         @media (max-width: 768px) {
-            .hb-text { font-size: 3rem; width: 90%; }
-            #timer-container { font-size: 7rem; }
-            /* Mobile par fixed background stable nahi rehta */
-            .bg-image { background-attachment: scroll; } 
+            .hb-text { font-size: 2.8rem; }
+            #timer-container { font-size: 6rem; }
         }
     </style>
 </head>
 <body>
 
     <canvas id="matrix-canvas"></canvas>
-
     <div id="timer-container">3</div>
 
     <div id="main-content">
@@ -138,34 +129,25 @@
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
 
-        function setCanvasSize() {
+        function resize() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
-        setCanvasSize();
+        window.addEventListener('resize', resize);
+        resize();
 
         // Digital Square Dots Logic
         const dotSize = 4; 
-        const spacing = 15; 
+        const spacing = 18; 
         let columns = Math.floor(canvas.width / spacing);
-        let drops = [];
-
-        function initDrops() {
-            columns = Math.floor(canvas.width / spacing);
-            for (let x = 0; x < columns; x++) {
-                drops[x] = Math.random() * -100; 
-            }
-        }
-        initDrops();
+        let drops = Array(columns).fill(0).map(() => Math.random() * -50);
 
         function drawDots() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+            ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "#ff1493"; 
-
             for (let i = 0; i < drops.length; i++) {
                 ctx.fillRect(i * spacing, drops[i] * spacing, dotSize, dotSize);
-
                 if (drops[i] * spacing > canvas.height && Math.random() > 0.975) {
                     drops[i] = 0;
                 }
@@ -173,11 +155,10 @@
             }
         }
 
-        let matrixInterval = setInterval(drawDots, 30);
+        let matrixInterval = setInterval(drawDots, 35);
 
         const timerElement = document.getElementById('timer-container');
         const mainContent = document.getElementById('main-content');
-        const bgImage = document.querySelector('.bg-image');
         let count = 3;
 
         function createHearts() {
@@ -185,13 +166,12 @@
             heart.innerHTML = '💖';
             heart.classList.add('heart');
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+            heart.style.fontSize = Math.random() * 15 + 20 + 'px';
             heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
             document.body.appendChild(heart);
             setTimeout(() => heart.remove(), 5000);
         }
-
-        setInterval(createHearts, 300);
+        setInterval(createHearts, 400);
 
         const countdown = setInterval(() => {
             count--;
@@ -208,15 +188,7 @@
             canvas.style.display = 'none';
             timerElement.style.display = 'none';
             mainContent.style.display = 'block';
-            setTimeout(() => {
-                bgImage.style.transform = 'scale(1)';
-            }, 50);
         }
-
-        window.addEventListener('resize', () => {
-            setCanvasSize();
-            initDrops();
-        });
     </script>
 </body>
 </html>
