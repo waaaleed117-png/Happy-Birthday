@@ -49,16 +49,15 @@
             z-index: 10;
         }
 
-        /* Image Position: Fix with adjusted focus point */
+        /* ZOOM KHATAM KARNE KI SETTING */
         .bg-image {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            /* Is line se faces zyada focus mein rahein ge */
-            object-position: center 20%; 
+            /* 'fill' istemal kiya hai taakay zoom bilkul na ho */
+            object-fit: fill; 
             filter: brightness(0.7);
             z-index: -1;
             pointer-events: none;
@@ -121,7 +120,6 @@
     <div id="timer-container">3</div>
 
     <div id="main-content">
-        <!-- New Image Link Updated Here -->
         <img src="https://i.ibb.co/VY6NFDKk/IMG-20260513-WA0001.jpg" alt="Background" class="bg-image">
         <div class="hb-container">
             <h1 class="hb-text">Happy Birthday! 🎀✨</h1>
@@ -133,6 +131,7 @@
         const ctx = canvas.getContext('2d');
         const mainContent = document.getElementById('main-content');
 
+        // Pixel Locking System (Stability) - No changes here
         function fixEverything() {
             const vh = window.innerHeight;
             const vw = window.innerWidth;
