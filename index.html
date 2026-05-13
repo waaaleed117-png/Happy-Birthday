@@ -7,7 +7,6 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@800&display=swap');
 
-        /* Poore viewport ko lock karne ke liye */
         html, body {
             margin: 0;
             padding: 0;
@@ -16,8 +15,8 @@
             overflow: hidden;
             background-color: #000;
             font-family: 'Montserrat', sans-serif;
-            position: fixed; /* Screen lock */
-            touch-action: none; /* Zoom/Scroll block */
+            position: fixed;
+            touch-action: none;
         }
 
         #matrix-canvas {
@@ -47,23 +46,36 @@
             top: 0;
             left: 0;
             z-index: 10;
+            background-color: #000;
         }
 
-        /* ZOOM KHATAM KARNE KI SETTING */
-        .bg-image {
+        /* Filling gaps with blur */
+        .bg-blur {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* 'fill' istemal kiya hai taakay zoom bilkul na ho */
-            object-fit: fill; 
-            filter: brightness(0.7);
+            background: url('https://i.ibb.co/VY6NFDKk/IMG-20260513-WA0001.jpg') no-repeat center center;
+            background-size: cover;
+            filter: blur(25px) brightness(0.3);
+            z-index: -2;
+        }
+
+        /* Landscape fix: No zoom, no stretch */
+        .bg-image {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: auto;
+            transform: translateY(-50%);
+            object-fit: contain;
+            filter: brightness(0.9);
             z-index: -1;
             pointer-events: none;
         }
 
-        /* Birthday Text: Center Lock */
         .hb-container {
             position: absolute;
             top: 50%;
@@ -77,10 +89,10 @@
 
         .hb-text {
             font-family: 'Dancing Script', cursive;
-            font-size: 4rem;
+            font-size: 3.2rem;
             color: white;
             margin: 0;
-            text-shadow: 0 0 25px #ff1493, 0 0 50px #ff69b4;
+            text-shadow: 0 0 20px #ff1493, 0 0 40px #ff69b4;
             animation: fadeInScale 1.5s ease-out forwards;
         }
 
@@ -109,7 +121,7 @@
         }
 
         @media (max-width: 768px) {
-            .hb-text { font-size: 2.8rem; }
+            .hb-text { font-size: 2.5rem; }
             #timer-container { font-size: 6rem; }
         }
     </style>
@@ -120,6 +132,7 @@
     <div id="timer-container">3</div>
 
     <div id="main-content">
+        <div class="bg-blur"></div>
         <img src="https://i.ibb.co/VY6NFDKk/IMG-20260513-WA0001.jpg" alt="Background" class="bg-image">
         <div class="hb-container">
             <h1 class="hb-text">Happy Birthday! 🎀✨</h1>
@@ -131,11 +144,9 @@
         const ctx = canvas.getContext('2d');
         const mainContent = document.getElementById('main-content');
 
-        // Pixel Locking System (Stability) - No changes here
         function fixEverything() {
             const vh = window.innerHeight;
             const vw = window.innerWidth;
-            
             document.body.style.height = vh + 'px';
             mainContent.style.height = vh + 'px';
             canvas.width = vw;
