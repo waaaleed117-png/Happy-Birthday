@@ -7,17 +7,16 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@800&display=swap');
 
-        /* Poore viewport ko lock karne ke liye */
         html, body {
             margin: 0;
             padding: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             overflow: hidden;
             background-color: #000;
             font-family: 'Montserrat', sans-serif;
-            position: fixed; 
-            touch-action: none; 
+            position: fixed;
+            touch-action: none;
         }
 
         #matrix-canvas {
@@ -41,25 +40,36 @@
 
         #main-content {
             display: none;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             position: absolute;
             top: 0;
             left: 0;
             z-index: 10;
         }
 
-        /* 100% NO-ZOOM FIX */
+        /* Blurred background to fill extra space */
+        .bg-blur {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.ibb.co/VY6NFDKk/IMG-20260513-WA0001.jpg') no-repeat center center;
+            background-size: cover;
+            filter: blur(20px) brightness(0.4);
+            z-index: -2;
+        }
+
+        /* Actual Image: No Zoom, No Stretch */
         .bg-image {
             position: absolute;
             top: 0;
             left: 0;
-            /* Yahan pixels ko view-port se lock kar diya hai taakay zoom na ho */
-            width: 100vw !important;
-            height: 100vh !important;
-            /* Object-fit ko 'fill' rakha hai taakay poori image frame ke andar rahe */
-            object-fit: fill !important; 
-            filter: brightness(0.7);
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Is se pic poori aye gi aur ajeeb nahi hogi */
+            filter: brightness(0.8);
             z-index: -1;
             pointer-events: none;
         }
@@ -109,7 +119,7 @@
         }
 
         @media (max-width: 768px) {
-            .hb-text { font-size: 2.5rem; }
+            .hb-text { font-size: 2.8rem; }
             #timer-container { font-size: 6rem; }
         }
     </style>
@@ -120,6 +130,7 @@
     <div id="timer-container">3</div>
 
     <div id="main-content">
+        <div class="bg-blur"></div> <!-- Blurred filler -->
         <img src="https://i.ibb.co/VY6NFDKk/IMG-20260513-WA0001.jpg" alt="Background" class="bg-image">
         <div class="hb-container">
             <h1 class="hb-text">Happy Birthday! 🎀✨</h1>
@@ -131,22 +142,13 @@
         const ctx = canvas.getContext('2d');
         const mainContent = document.getElementById('main-content');
 
-        // Ye function stability aur sizing ko handle karega
         function fixEverything() {
             const vh = window.innerHeight;
             const vw = window.innerWidth;
-            
             document.body.style.height = vh + 'px';
             mainContent.style.height = vh + 'px';
             canvas.width = vw;
             canvas.height = vh;
-
-            // Forcefully image ka size update karna
-            const img = document.querySelector('.bg-image');
-            if(img) {
-                img.style.width = vw + 'px';
-                img.style.height = vh + 'px';
-            }
         }
 
         window.addEventListener('resize', fixEverything);
