@@ -48,14 +48,13 @@
             z-index: 10;
         }
 
-        /* Wapis Full Screen Zoom Style */
         .bg-image {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Is se image zoom ho kar poori screen fill karegi */
+            object-fit: cover;
             filter: brightness(0.8);
             z-index: -1;
             pointer-events: none;
@@ -70,15 +69,27 @@
             text-align: center;
             z-index: 15;
             pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Space between lines */
         }
 
-        .hb-text {
+        .line-1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: white;
+            margin: 0;
+            text-shadow: 0 0 20px #ff1493, 0 0 40px #ff69b4;
+            animation: fadeInScale 1.5s ease-out forwards;
+        }
+
+        .line-2 {
             font-family: 'Dancing Script', cursive;
             font-size: 4rem;
             color: white;
             margin: 0;
             text-shadow: 0 0 25px #ff1493, 0 0 50px #ff69b4;
-            animation: fadeInScale 1.5s ease-out forwards;
+            animation: fadeInScale 1.8s ease-out forwards;
         }
 
         @keyframes bounceIn {
@@ -106,7 +117,8 @@
         }
 
         @media (max-width: 768px) {
-            .hb-text { font-size: 3rem; }
+            .line-1 { font-size: 2.5rem; }
+            .line-2 { font-size: 3.2rem; }
             #timer-container { font-size: 6rem; }
         }
     </style>
@@ -117,10 +129,10 @@
     <div id="timer-container">3</div>
 
     <div id="main-content">
-        <!-- Background Blur nikaal diya hai -->
         <img src="https://i.ibb.co/VY6NFDKk/IMG-20260513-WA0001.jpg" alt="Background" class="bg-image">
         <div class="hb-container">
-            <h1 class="hb-text">Happy Birthday,Anoosha! 🎀✨</h1>
+            <div class="line-1">Happy Birthday,</div>
+            <div class="line-2">Anoosha! 🎀✨</div>
         </div>
     </div>
 
