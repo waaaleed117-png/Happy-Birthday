@@ -190,7 +190,7 @@
         <button id="start-btn">Click to Open Surprise ❤️</button>
     </div>
 
-    <!-- Preload is set to auto and dl=1 for instant play -->
+    <!-- Dropbox link with dl=1 for instant access -->
     <audio id="bg-music" loop preload="auto">
         <source src="https://www.dropbox.com/scl/fi/yoycoouq45y8ydzutv9z7/Indila_-_Love_Story__Piano_Cover_-48k.mp3?rlkey=tncy3j3mf43y1p1f72fhzg01l&st=8c436b25&dl=1" type="audio/mpeg">
     </audio>
@@ -220,6 +220,17 @@
         const overlay = document.getElementById('start-overlay');
         const timerElement = document.getElementById('timer-container');
 
+        // Audio optimization
+        let audioCtx;
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
         function fixEverything() {
             const vh = window.innerHeight;
             const vw = window.innerWidth;
@@ -234,10 +245,18 @@
         fixEverything();
 
         startBtn.addEventListener('click', () => {
-            // SAKHT CHANGING: Force music to play BEFORE anything else
-            music.currentTime = 0;
+            // SAKHT CHANGING: Initialize audio context and play immediately
+            initAudio();
             music.muted = false;
-            music.play().catch(err => console.log("Music play error:", err));
+            music.currentTime = 0;
+            const playPromise = music.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Auto-play prevented, retrying...");
+                    music.play();
+                });
+            }
 
             overlay.style.display = 'none';
             canvas.style.display = 'block';
