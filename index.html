@@ -184,15 +184,17 @@
         window.addEventListener('orientationchange', fixEverything);
         fixEverything();
 
-        const dotSize = 4.5; // Thora sa bara size
-        const spacing = 15; // Spacing kam ki taakay dots thore ziada hon
+        const dotSize = 4.5;
+        const spacing = 15;
         let columns = Math.floor(canvas.width / spacing);
-        let drops = Array(columns).fill(0).map(() => Math.random() * -100);
+        
+        // Matrix drops ko screen ke top se random positions pe start kiya
+        let drops = Array(columns).fill(0).map(() => Math.random() * (canvas.height / spacing));
 
         function drawDots() {
-            ctx.fillStyle = "rgba(255, 255, 255, 0.2)"; // Background fade ko thora adjust kiya
+            ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#ff69b4"; // Dots ka color wazeh pink rakha
+            ctx.fillStyle = "#ff69b4";
             for (let i = 0; i < drops.length; i++) {
                 ctx.fillRect(i * spacing, drops[i] * spacing, dotSize, dotSize);
                 if (drops[i] * spacing > canvas.height && Math.random() > 0.97) {
