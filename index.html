@@ -19,7 +19,6 @@
             touch-action: none;
         }
 
-        /* --- Overlay for Start Button --- */
         #start-overlay {
             position: fixed;
             top: 0;
@@ -59,7 +58,7 @@
             top: 0;
             left: 0;
             z-index: 5;
-            display: none; /* Initially hidden */
+            display: none;
         }
 
         #timer-container {
@@ -74,7 +73,7 @@
             animation: fadeEffect 1s ease-in-out infinite;
             z-index: 20;
             font-family: 'Montserrat', sans-serif;
-            display: none; /* Initially hidden */
+            display: none;
         }
 
         @keyframes fadeEffect {
@@ -187,14 +186,13 @@
 </head>
 <body>
 
-    <!-- White Background Start Button -->
     <div id="start-overlay">
         <button id="start-btn">Click to Open Surprise ❤️</button>
     </div>
 
-    <!-- Music Player -->
-    <audio id="bg-music" loop>
-        <source src="https://files.catbox.moe/9jtq5p.mp3" type="audio/mpeg">
+    <!-- Updated Dropbox Link for Direct Play -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://www.dropbox.com/scl/fi/yoycoouq45y8ydzutv9z7/Indila_-_Love_Story__Piano_Cover_-48k.mp3?rlkey=tncy3j3mf43y1p1f72fhzg01l&st=8c436b25&dl=1" type="audio/mpeg">
     </audio>
 
     <canvas id="matrix-canvas"></canvas>
@@ -235,12 +233,15 @@
         window.addEventListener('orientationchange', fixEverything);
         fixEverything();
 
-        // Music and Trigger start
         startBtn.addEventListener('click', () => {
             overlay.style.display = 'none';
             canvas.style.display = 'block';
             timerElement.style.display = 'block';
-            music.play();
+            
+            // Unmute and force play
+            music.muted = false;
+            music.play().catch(err => console.log("Music play error:", err));
+            
             startCountdown();
         });
 
