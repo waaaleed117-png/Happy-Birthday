@@ -112,17 +112,12 @@
             transform: translate(-50%, -50%);
             width: 90%;
             max-height: 95vh;
-            overflow-y: auto;
+            overflow: hidden;
             text-align: center;
             z-index: 15;
             display: flex;
             flex-direction: column;
             gap: 5px; 
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .hb-container::-webkit-scrollbar {
-            display: none;
         }
 
         .simple-text {
@@ -270,10 +265,10 @@
             100% { opacity: 1; box-shadow: 0 0 15px 5px #fdcb6e, 0 0 25px 12px rgba(253, 203, 110, 0.8); }
         }
 
-        /* CANDLES POSITION DYNAMICALLY ADJUSTED ABOVE DAIRY */
+        /* FIXED CANDLES POSITION ABOVE DYNAMIC DAIRY */
         .candles-box {
             position: absolute;
-            bottom: calc(50% + 18vh); 
+            bottom: calc(50% + 22vh); 
             width: 100%;
             display: flex;
             justify-content: center;
@@ -331,7 +326,7 @@
             100% { transform: translateX(-50%) scale(1.05) rotate(1.5deg); }
         }
 
-        /* AUTO-HEIGHT RESPONSIVE DAIRY BOX WITH NO OVERFLOW INTERNALLY */
+        /* AUTO HEIGHT WITH ZERO INTERNAL SCROLL */
         .dairy-layout {
             position: absolute;
             top: 55%;
@@ -340,11 +335,10 @@
             width: 92%;
             max-width: 660px;
             height: auto;
-            max-height: 34vh;
             background: #2b1404; 
             border-radius: 12px;
             display: flex;
-            padding: 6px 12px 14px 12px; 
+            padding: 8px 12px 14px 12px; 
             box-sizing: border-box;
             box-shadow: 
                 0 30px 65px rgba(0,0,0,0.9),
@@ -364,7 +358,7 @@
 
         .dairy-side {
             flex: 1;
-            padding: 20px 15px;
+            padding: 25px 15px;
             overflow: hidden;
             box-sizing: border-box;
             font-family: 'Dancing Script', cursive;
@@ -411,14 +405,14 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* OPTIMIZED PERFORMANCE HEARTS WITH HARDWARE ACCELERATION */
+        /* HARDWARE ACCELERATED LIGHTWEIGHT FLOATING HEARTS */
         .heart {
             position: absolute;
             color: #ff1493;
             z-index: 100;
             pointer-events: none;
             will-change: transform, opacity;
-            animation: floatUp 10s linear forwards; 
+            animation: floatUp 12s linear forwards; 
         }
 
         @keyframes floatUp {
@@ -427,12 +421,12 @@
         }
 
         @media (max-width: 768px) {
-            .simple-text { font-size: 2.3rem; }
+            .simple-text { font-size: 2.2rem; }
             .para-box { font-size: 0.85rem; padding: 12px; }
             #timer-container { font-size: 6rem; }
-            .dairy-layout { max-height: 40vh; width: 95%; top: 55%; padding: 5px 8px 10px 8px; }
-            .dairy-side { font-size: 1.15rem; padding: 12px 10px; line-height: 1.35; }
-            .candles-box { gap: 42px; bottom: calc(50% + 21vh); } 
+            .dairy-layout { width: 95%; top: 55%; padding: 5px 6px 10px 6px; }
+            .dairy-side { font-size: 1.05rem; padding: 15px 8px; line-height: 1.3; }
+            .candles-box { gap: 42px; bottom: calc(50% + 23vh); } 
             .candle { width: 20px; height: 62px; }
             .candle.center-candle { height: 84px; width: 22px; top: -22px; }
         }
@@ -639,18 +633,19 @@
             heart.innerHTML = '💖';
             heart.className = 'heart';
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.fontSize = Math.random() * 12 + 18 + 'px';
+            heart.style.fontSize = Math.random() * 10 + 16 + 'px';
             document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 10000); 
+            setTimeout(() => heart.remove(), 12000); 
         }
 
+        let heartGeneratorInterval;
         function revealSurprise() {
-            clearInterval(matrixInterval);
+            clearInterval(matrixInterval); // STOPS CANVAS RENDER LOOP COMPLETELY
             canvas.style.display = 'none';
             timerElement.style.display = 'none';
             document.body.style.backgroundColor = "#000"; 
             mainContent.style.display = 'block';
-            setInterval(createHearts, 1200); 
+            heartGeneratorInterval = setInterval(createHearts, 1500); 
             fixEverything();
         }
     </script>
