@@ -192,7 +192,7 @@
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, #100613, #020005);
+            background: linear-gradient(to bottom, #120716, #000000);
             z-index: 50;
             opacity: 0;
             transition: opacity 1.2s ease;
@@ -202,7 +202,7 @@
         .ambient-glow {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 25%, rgba(253, 203, 110, 0.18) 0%, transparent 70%);
+            background: radial-gradient(circle at 50% 22%, rgba(253, 180, 70, 0.22) 0%, transparent 65%);
             pointer-events: none;
             z-index: 52;
         }
@@ -261,71 +261,69 @@
             100% { opacity: 1; box-shadow: 0 0 15px 5px #fdcb6e, 0 0 25px 12px rgba(253, 203, 110, 0.8); }
         }
 
-        /* ATTRACTIVE CARVED PILLAR CANDLES */
+        /* ATTRACTIVE CARVED CYLINDRICAL PILLAR CANDLES */
         .candles-box {
             position: absolute;
-            top: calc(58% - 25vh - 75px); 
+            top: calc(58% - 25vh - 78px); 
             width: 100%;
             display: flex;
             justify-content: center;
-            gap: 55px;
+            gap: 60px;
             z-index: 55;
         }
 
         .candle {
-            width: 26px;
-            height: 70px;
-            background: linear-gradient(135deg, #fff3cc 0%, #fcd68a 40%, #e2a842 100%);
-            border-radius: 6px 6px 4px 4px;
+            width: 24px;
+            height: 68px;
+            background: linear-gradient(to right, #e29c36 0%, #ffeaa7 25%, #fdcb6e 60%, #c98422 100%);
+            border-radius: 12px 12px 3px 3px; /* Rounded top edge for natural melting wax look */
             position: relative;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4), inset -3px 0 6px rgba(0,0,0,0.15), inset 2px 0 4px rgba(255,255,255,0.6);
-            border: 1px solid #d4a343;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
 
-        /* Subtle geometric wax pattern lines */
-        .candle::after {
+        /* Melted wax drop styling artifact */
+        .candle::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(212,163,67,0.15) 1px, transparent 1px);
-            background-size: 100% 8px;
-            pointer-events: none;
+            top: 8px; left: 4px; width: 4px; height: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 2px;
+            opacity: 0.4;
         }
 
         .candle.center-candle { 
-            height: 95px; 
-            top: -25px; 
-            width: 28px; 
+            height: 90px; 
+            top: -22px; 
+            width: 26px; 
         }
 
         .wick {
             position: absolute;
             top: -6px; left: 50%;
             transform: translateX(-50%);
-            width: 3px; height: 7px;
-            background: #333;
-            border-radius: 2px;
+            width: 2px; height: 7px;
+            background: #111;
         }
 
         .flame {
             width: 16px;
-            height: 28px;
-            background: radial-gradient(circle at 50% 80%, #ffffff 0%, #ffea88 25%, #ff9900 60%, #ff3300 100%);
+            height: 26px;
+            background: radial-gradient(circle at 50% 80%, #ffffff 10%, #ffea88 30%, #ff9400 70%);
             border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
             position: absolute;
-            top: -32px;
+            top: -30px;
             left: 50%;
             transform: translateX(-50%);
-            animation: candleFlicker 0.12s ease-in-out infinite alternate;
-            box-shadow: 0 0 25px 8px rgba(255, 165, 0, 0.75), 0 0 60px 25px rgba(253, 203, 110, 0.4);
+            animation: candleFlicker 0.13s ease-in-out infinite alternate;
+            box-shadow: 0 0 30px 10px rgba(255, 140, 0, 0.8), 0 0 60px 20px rgba(253, 203, 110, 0.5);
         }
 
         @keyframes candleFlicker {
-            0% { transform: translateX(-50%) scale(0.96) rotate(-1.5deg); filter: brightness(0.95); }
-            100% { transform: translateX(-50%) scale(1.05) rotate(2deg); filter: brightness(1.15); }
+            0% { transform: translateX(-50%) scale(0.95) rotate(-1deg); }
+            100% { transform: translateX(-50%) scale(1.05) rotate(1.5deg); }
         }
 
-        /* ATTRACTIVE 3D ROYAL LEATHER-BOUND DIARY WITH MULTI-PAGE DEPTH EFFECT */
+        /* ATTRACTIVE 3D BOOK CASING WITH MULTI-PAGE EMBOSSED DEPTH LINES */
         .dairy-layout {
             position: absolute;
             top: 58%;
@@ -334,81 +332,75 @@
             width: 92%;
             max-width: 660px;
             height: 50vh;
-            background: #3a1e05; /* Solid outer spine casing */
-            border-radius: 14px;
-            /* Outer Cover Leather Layering */
-            box-shadow: 
-                0 35px 75px rgba(0,0,0,0.9), 
-                0 10px 25px rgba(0,0,0,0.7),
-                inset 0 0 20px rgba(0,0,0,0.8);
+            background: #2b1404; /* Luxury dark leather spine base */
+            border-radius: 12px;
             display: flex;
-            padding: 8px; /* Simulated outer leather cover edge */
-            border: 2px solid #5a3416;
+            padding: 6px 12px 14px 12px; /* Bottom & side margins to reveal underlying pages stack */
             box-sizing: border-box;
+            
+            /* Realistic Multi-layered stack shadows at borders */
+            box-shadow: 
+                0 30px 65px rgba(0,0,0,0.9),
+                inset 0 0 20px rgba(0,0,0,0.8),
+                /* Horizontal stacked pages visual stripes at outer borders */
+                0 4px 0 #ebdcb2, 0 8px 0 #3a1e05, 
+                0 9px 0 #ebdcb2, 0 13px 0 #1a0d03;
         }
 
-        /* Middle Book Spine Spine / Rings effect */
+        /* Center Book spine shadow separation line */
         .dairy-layout::before {
             content: '';
             position: absolute;
-            left: 50%; top: 0; width: 6px; height: 100%;
+            left: 50%; top: 0; width: 4px; height: 100%;
             transform: translateX(-50%);
-            background: linear-gradient(to right, #1a0d03, #42250f 30%, #1a0d03 70%, #0a0501);
-            box-shadow: 0 0 10px rgba(0,0,0,0.8);
+            background: linear-gradient(to right, rgba(0,0,0,0.5), rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.5));
             z-index: 10;
         }
 
-        /* ATTRACTIVE VINTAGE FLOURISHED PAPER PAGES WITH MULTI-PAGE STACK SIDES */
+        /* REALISTIC BOOK SIDE WITH UNDERLYING PAGES SIDE EFFECT */
         .dairy-side {
             flex: 1;
-            padding: 28px 22px;
+            padding: 30px 22px;
             overflow-y: auto;
             box-sizing: border-box;
             font-family: 'Dancing Script', cursive;
             font-size: 1.5rem;
             line-height: 1.6;
-            color: #2c1a0c;
-            
-            /* Premium Parchment Texture With Shadow Lines Mimicking Page Stacks Inside */
-            background: #fffdf0 url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20v20H0V0zm20 20h20v20H20V20z' fill='%23f3ebd3' fill-opacity='.3' fill-rule='evenodd'/%3E%3C/svg%3E");
-            box-shadow: 
-                inset 0 0 35px rgba(184, 153, 106, 0.35),
-                2px 2px 5px rgba(0,0,0,0.15);
+            color: #2a180a;
+            background: #fffdf2;
             position: relative;
             z-index: 2;
+            
+            /* Textured soft book shadow effect */
+            background-image: linear-gradient(to right, rgba(0,0,0,0.04), transparent 15%);
         }
 
-        /* Decorative filigree corners on layout pages */
-        .dairy-side::before {
-            content: '✿';
-            position: absolute;
-            top: 8px;
-            font-size: 0.8rem;
-            color: rgba(184, 153, 106, 0.4);
-        }
-        .dairy-side.side-left::before { right: 12px; }
-        .dairy-side.side-right::before { left: 12px; }
-
-        /* Multi-page depth shadow border simulation */
+        /* LEFT SIDE MULTI-PAGE STACK SIDES AESTHETICS */
         .dairy-side.side-left {
             border-radius: 8px 0 0 8px;
-            border-right: 1px solid rgba(0,0,0,0.15);
+            border-right: 1px solid rgba(0, 0, 0, 0.08);
             padding-right: 20px;
-            /* Stacked page edge simulation on the outer left */
+            /* Underneath side pages contour effect */
             box-shadow: 
-                inset 10px 0 15px rgba(0,0,0,0.05),
-                inset 0 0 35px rgba(184, 153, 106, 0.35),
-                -4px 2px 5px rgba(0,0,0,0.2);
+                inset 12px 0 20px rgba(0,0,0,0.04),
+                inset -3px 0 10px rgba(184, 153, 106, 0.15),
+                /* Simulated stack borders */
+                -3px 0 0 #f4edd4, -6px 0 0 #e6dcbe;
+            margin-left: 4px;
         }
 
+        /* RIGHT SIDE MULTI-PAGE STACK SIDES AESTHETICS */
         .dairy-side.side-right {
             border-radius: 0 8px 8px 0;
             padding-left: 20px;
-            /* Stacked page edge simulation on the outer right */
+            /* Underneath side pages contour effect */
             box-shadow: 
-                inset -10px 0 15px rgba(0,0,0,0.05),
-                inset 0 0 35px rgba(184, 153, 106, 0.35),
-                4px 2px 5px rgba(0,0,0,0.2);
+                inset -12px 0 20px rgba(0,0,0,0.04),
+                inset 3px 0 10px rgba(184, 153, 106, 0.15),
+                /* Simulated stack borders */
+                3px 0 0 #f4edd4, 6px 0 0 #e6dcbe;
+            margin-right: 4px;
+            background-image: linear-gradient(to left, rgba(0,0,0,0.03), transparent 15%);
         }
 
         @keyframes fadeInScale {
@@ -438,11 +430,11 @@
             .simple-text { font-size: 2.5rem; }
             .para-box { font-size: 0.85rem; padding: 12px; }
             #timer-container { font-size: 7rem; }
-            .dairy-layout { height: 54vh; width: 95%; top: 60%; padding: 6px; }
+            .dairy-layout { height: 54vh; width: 95%; top: 60%; padding: 5px 8px 10px 8px; }
             .dairy-side { font-size: 1.25rem; padding: 22px 14px; }
-            .candles-box { gap: 40px; top: calc(60% - 27vh - 72px); } 
-            .candle { width: 22px; height: 60px; }
-            .candle.center-candle { height: 82px; width: 24px; top: -22px; }
+            .candles-box { gap: 42px; top: calc(60% - 27vh - 74px); } 
+            .candle { width: 20px; height: 62px; }
+            .candle.center-candle { height: 84px; width: 22px; top: -22px; }
         }
     </style>
 </head>
