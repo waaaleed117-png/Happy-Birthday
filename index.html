@@ -209,7 +209,7 @@
             z-index: 52;
         }
 
-        /* HANGING STRING LIGHTS EFFECT (MATCHING IMAGE 41115.JPG) */
+        /* HANGING STRING LIGHTS EFFECT */
         .string-lights {
             position: absolute;
             top: 0;
@@ -263,10 +263,10 @@
             100% { opacity: 1; box-shadow: 0 0 15px 5px #fdcb6e, 0 0 25px 12px rgba(253, 203, 110, 0.8); }
         }
 
-        /* GLOWING YELLOW CANDLES - POSITIONED FIXED RIGHT ABOVE THE DIARY */
+        /* FIXED CANDLES POSITION - SET TO SIT EXACTLY ON TOP OF DIARY BORDER */
         .candles-box {
             position: absolute;
-            top: calc(58% - 52vh/2 - 65px); /* Automatically tracks right above the diary */
+            top: calc(58% - 25vh - 58px); /* Aligns the base of the candle right against the diary top */
             width: 100%;
             display: flex;
             justify-content: center;
@@ -361,13 +361,13 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* SLOWED DOWN AND SMOOTH FLOATING HEARTS */
+        /* SMOOTH & REFINED FLOATING HEARTS SPEED FOR ALL PAGES */
         .heart {
             position: absolute;
             color: #ff1493;
             z-index: 100;
             pointer-events: none;
-            animation: floatUp 8s linear forwards; /* Increased from 5s to 8s for slow smooth speed */
+            animation: floatUp 7s linear forwards; /* Controlled speed to stay perfectly in sync without lag */
         }
 
         @keyframes floatUp {
@@ -381,7 +381,7 @@
             #timer-container { font-size: 7rem; }
             .dairy-layout { height: 54vh; width: 95%; top: 60%; }
             .dairy-side { font-size: 1.2rem; padding: 18px 12px; }
-            .candles-box { gap: 35px; top: calc(60% - 54vh/2 - 50px); } /* Adjusted responsive candle top */
+            .candles-box { gap: 35px; top: calc(60% - 27vh - 54px); } /* Recalculated mobile gap to keep candles touching the diary */
         }
     </style>
 </head>
@@ -448,7 +448,6 @@
         const triggerDairyBtn = document.getElementById('trigger-dairy-btn');
         const dairyScreen = document.getElementById('dairy-screen');
 
-        // Audio optimization
         let audioCtx;
         function initAudio() {
             if (!audioCtx) {
@@ -459,12 +458,10 @@
             }
         }
 
-        // GENERATE BULBS FOR THE STRING LIGHTS DYNAMICALLY
         function createStringBulbs() {
             const layer1 = document.getElementById('bulbs-layer-1');
             const layer2 = document.getElementById('bulbs-layer-2');
             
-            // Layer 1 Bulbs (First hanging curve)
             for (let i = 0; i <= 10; i++) {
                 const bulb = document.createElement('div');
                 bulb.className = 'bulb';
@@ -476,7 +473,6 @@
                 layer1.appendChild(bulb);
             }
 
-            // Layer 2 Bulbs (Second overlapping hanging curve)
             for (let i = 0; i <= 8; i++) {
                 const bulb = document.createElement('div');
                 bulb.className = 'bulb';
@@ -523,7 +519,6 @@
             startCountdown();
         });
 
-        // ACTION EVENT FOR SWITCHING TO DAIRY
         triggerDairyBtn.addEventListener('click', () => {
             mainContent.style.opacity = '0';
             
@@ -593,7 +588,7 @@
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.fontSize = Math.random() * 15 + 20 + 'px';
             document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 8000); // Handled cleanup matching new slower transition time
+            setTimeout(() => heart.remove(), 7000); 
         }
 
         function revealSurprise() {
@@ -602,7 +597,8 @@
             timerElement.style.display = 'none';
             document.body.style.backgroundColor = "#000"; 
             mainContent.style.display = 'block';
-            setInterval(createHearts, 800); // Increased interval from 400ms to 800ms to prevent clogging/lagging
+            // Uniform 750ms flow on both screens makes it look lag-free and perfectly timed!
+            setInterval(createHearts, 750); 
             fixEverything();
         }
     </script>
