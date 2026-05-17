@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>The Diary ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;700;900&display=swap');
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #120716, #000000);
+            font-family: 'Montserrat', sans-serif;
+            position: fixed;
+            touch-action: none;
+        }
+
+        .ambient-glow {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 22%, rgba(253, 180, 70, 0.22) 0%, transparent 65%);
+            pointer-events: none;
+            z-index: 52;
+        }
+
+        /* HANGING STRING LIGHTS EFFECT */
+        .string-lights {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            z-index: 56;
+            pointer-events: none;
+        }
+
+        .light-wire {
+            position: absolute;
+            width: 110%;
+            height: 40px;
+            border: solid 1px rgba(255,255,255,0.15);
+            border-color: rgba(20,20,20,0.7) transparent transparent transparent;
+            border-radius: 50%/20px 20px 0 0;
+            left: -5%;
+        }
+        
+        .wire-1 { top: -5px; transform: rotate(1deg); }
+        .wire-2 { top: 15px; transform: rotate(-2deg); }
+
+        .bulb-group {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0; left: 0;
+        }
+
+        .bulb {
+            position: absolute;
+            width: 8px;
+            height: 14px;
+            background: #fff5cc;
+            border-radius: 50% 50% 40% 40% / 40% 40% 60% 60%;
+            box-shadow: 0 0 12px 4px #fdcb6e, 0 0 20px 8px rgba(253, 203, 110, 0.6);
+            animation: warmGlow 1.5s ease-in-out infinite alternate;
+        }
+        
+        .bulb::before {
+            content: '';
+            position: absolute;
+            top: -3px; left: 2px;
+            width: 4px; height: 3px;
+            background: #222;
+        }
+
+        @keyframes warmGlow {
+            0% { opacity: 0.85; box-shadow: 0 0 10px 3px #fdcb6e, 0 0 18px 6px rgba(253, 203, 110, 0.5); }
+            100% { opacity: 1; box-shadow: 0 0 15px 5px #fdcb6e, 0 0 25px 12px rgba(253, 203, 110, 0.8); }
+        }
+
+        /* CONTAINER WRAPPER FOR CANDLES + DAIRY */
+        .dairy-container-block {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -45%);
+            width: 92%;
+            max-width: 660px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 54;
+        }
+
+        .candles-box {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 60px;
+            margin-bottom: -5px;
+            z-index: 55;
+            width: 100%;
+        }
+
+        .candle {
+            width: 24px;
+            height: 68px;
+            background: linear-gradient(to right, #e29c36 0%, #ffeaa7 25%, #fdcb6e 60%, #c98422 100%);
+            border-radius: 12px 12px 3px 3px;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .candle::before {
+            content: '';
+            position: absolute;
+            top: 8px; left: 4px; width: 4px; height: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 2px;
+            opacity: 0.4;
+        }
+
+        .candle.center-candle { 
+            height: 90px; 
+            width: 26px; 
+        }
+
+        .wick {
+            position: absolute;
+            top: -6px; left: 50%;
+            transform: translateX(-50%);
+            width: 2px; height: 7px;
+            background: #111;
+        }
+
+        .flame {
+            width: 16px;
+            height: 26px;
+            background: radial-gradient(circle at 50% 80%, #ffffff 10%, #ffea88 30%, #ff9400 70%);
+            border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: candleFlicker 0.13s ease-in-out infinite alternate;
+            box-shadow: 0 0 30px 10px rgba(255, 140, 0, 0.8), 0 0 60px 20px rgba(253, 203, 110, 0.5);
+        }
+
+        @keyframes candleFlicker {
+            0% { transform: translateX(-50%) scale(0.95) rotate(-1deg); }
+            100% { transform: translateX(-50%) scale(1.05) rotate(1.5deg); }
+        }
+
+        /* DAIRY LAYOUT WITH REALISTIC COVERS */
+        .dairy-layout {
+            width: 100%;
+            height: auto;
+            background: #361b07; 
+            border-radius: 14px;
+            display: flex;
+            padding: 10px 14px 18px 14px; 
+            box-sizing: border-box;
+            box-shadow: 
+                0 25px 55px rgba(0,0,0,0.85),
+                inset 0 0 15px rgba(0,0,0,0.7),
+                0 4px 0 #ebdcb2, 0 8px 0 #1f0f04, 
+                0 9px 0 #ebdcb2, 0 14px 0 rgba(0,0,0,0.6);
+            position: relative;
+        }
+
+        .dairy-layout::before {
+            content: '';
+            position: absolute;
+            left: 50%; top: 0; width: 6px; height: 100%;
+            transform: translateX(-50%);
+            background: linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.4));
+            z-index: 10;
+        }
+
+        .dairy-side {
+            flex: 1;
+            padding: 25px 20px;
+            overflow: hidden;
+            box-sizing: border-box;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            line-height: 1.45;
+            color: #2b1a0d;
+            background: #fffdf4;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: left;
+        }
+
+        .dairy-side.side-left {
+            border-radius: 6px 0 0 6px;
+            border-right: 1px solid rgba(0, 0, 0, 0.12);
+            box-shadow: 
+                inset 15px 0 25px rgba(0,0,0,0.05),
+                inset -5px 0 12px rgba(184, 153, 106, 0.15),
+                -2px 0 0 #ebdcb2;
+        }
+
+        .dairy-side.side-right {
+            border-radius: 0 6px 6px 0;
+            box-shadow: 
+                inset -15px 0 25px rgba(0,0,0,0.05),
+                inset 5px 0 12px rgba(184, 153, 106, 0.15),
+                2px 0 0 #ebdcb2;
+        }
+
+        /* FLOATING HEARTS EFFECT */
+        .heart {
+            position: absolute;
+            color: #ff1493;
+            z-index: 100;
+            pointer-events: none;
+            will-change: transform, opacity;
+            animation: floatUp 10s linear forwards; 
+        }
+
+        @keyframes floatUp {
+            0% { transform: translate3d(0, 105vh, 0); opacity: 1; }
+            100% { transform: translate3d(0, -15vh, 0); opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .dairy-container-block { width: 94%; transform: translate(-50%, -42%); }
+            .dairy-layout { padding: 6px 8px 12px 8px; }
+            .dairy-side { font-size: 1.15rem; padding: 15px 12px; line-height: 1.4; }
+            .candles-box { gap: 40px; margin-bottom: -4px; } 
+            .candle { width: 18px; height: 58px; }
+            .candle.center-candle { height: 78px; width: 21px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow"></div>
+    
+    <div class="string-lights">
+        <div class="light-wire wire-1"></div>
+        <div class="bulb-group" id="bulbs-layer-1"></div>
+        
+        <div class="light-wire wire-2"></div>
+        <div class="bulb-group" id="bulbs-layer-2"></div>
+    </div>
+    
+    <div class="dairy-container-block">
+        <div class="candles-box">
+            <div class="candle"><div class="wick"></div><div class="flame"></div></div>
+            <div class="candle center-candle"><div class="wick"></div><div class="flame"></div></div>
+            <div class="candle"><div class="wick"></div><div class="flame"></div></div>
+        </div>
+
+        <div class="dairy-layout">
+            <div class="dairy-side side-left" id="page-left"></div>
+            <div class="dairy-side side-right" id="page-right"></div>
+        </div>
+    </div>
+
+    <script>
+        function createStringBulbs() {
+            const layer1 = document.getElementById('bulbs-layer-1');
+            const layer2 = document.getElementById('bulbs-layer-2');
+            
+            for (let i = 0; i <= 10; i++) {
+                const bulb = document.createElement('div');
+                bulb.className = 'bulb';
+                const leftPercent = i * 10;
+                bulb.style.left = leftPercent + '%';
+                const drop = Math.sin((i / 10) * Math.PI) * 22 + 5;
+                bulb.style.top = drop + 'px';
+                bulb.style.animationDelay = (i * 0.15) + 's';
+                layer1.appendChild(bulb);
+            }
+
+            for (let i = 0; i <= 8; i++) {
+                const bulb = document.createElement('div');
+                bulb.className = 'bulb';
+                const leftPercent = 5 + (i * 11.2);
+                bulb.style.left = leftPercent + '%';
+                const drop = Math.sin((i / 8) * Math.PI) * 24 + 25;
+                bulb.style.top = drop + 'px';
+                bulb.style.animationDelay = (i * 0.2) + 's';
+                layer2.appendChild(bulb);
+            }
+        }
+        createStringBulbs();
+
+        function divideParagraphContent() {
+            const paragraphText = "Look at you yrrr itni haseen itni pure heart wali lrkiiii, your mom and dad must be so proud of you fr. And me? Mai tou bohat zyada proud hu ke meri life mai tm ho. I promise mai hamesha tmhara sath du ga, tmhy pyar kru ga or har situation mai tmhy special feel krwau ga because tm sirf meri favorite person nhi ho tm meri aadat ban chuki hooo💖";
+            
+            const middlePoint = Math.floor(paragraphText.length / 2);
+            const optimalSplitIndex = paragraphText.lastIndexOf(' ', middlePoint);
+
+            const firstHalf = paragraphText.substring(0, optimalSplitIndex);
+            const secondHalf = paragraphText.substring(optimalSplitIndex);
+
+            document.getElementById('page-left').innerHTML = `<span>${firstHalf}</span>`;
+            document.getElementById('page-right').innerHTML = `<span>${secondHalf}</span>`;
+        }
+        divideParagraphContent();
+
+        function createHearts() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '💖';
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = Math.random() * 12 + 18 + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 10000); 
+        }
+        setInterval(createHearts, 1200);
+    </script>
+</body>
+</html>
