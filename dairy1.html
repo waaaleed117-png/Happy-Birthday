@@ -81,10 +81,10 @@
             100% { opacity: 1; box-shadow: 0 0 15px 5px #fdcb6e, 0 0 25px 12px rgba(253, 203, 110, 0.8); }
         }
 
-        /* CONTAINER WRAPPER FOR CANDLES + DAIRY */
+        /* CONTAINER WRAPPER FOR CANDLES + DAIRY (ADDED LOAD ANIMATION) */
         .dairy-container-block {
             position: absolute;
-            top: 55%;
+            top: 52%;
             left: 50%;
             transform: translate(-50%, -45%);
             width: 92%;
@@ -93,6 +93,13 @@
             flex-direction: column;
             align-items: center;
             z-index: 54;
+            opacity: 0;
+            animation: openDiaryAnim 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        @keyframes openDiaryAnim {
+            0% { opacity: 0; transform: translate(-50%, -35%) scale(0.85); }
+            100% { opacity: 1; transform: translate(-50%, -45%) scale(1); }
         }
 
         .candles-box {
@@ -215,6 +222,40 @@
                 2px 0 0 #ebdcb2;
         }
 
+        /* NAVIGATION BUTTONS BAR BELOW DIARY */
+        .diary-nav-bar {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 25px;
+            box-sizing: border-box;
+            padding: 0 5px;
+        }
+
+        .nav-action-btn {
+            padding: 12px 30px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 20, 147, 0.5);
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 20, 147, 0.15);
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-action-btn:hover {
+            background: rgba(255, 20, 147, 0.25);
+            box-shadow: 0 0 25px rgba(255, 20, 147, 0.5);
+            transform: scale(1.04);
+        }
+
         /* FLOATING HEARTS EFFECT */
         .heart {
             position: absolute;
@@ -231,12 +272,14 @@
         }
 
         @media (max-width: 768px) {
-            .dairy-container-block { width: 94%; transform: translate(-50%, -42%); }
+            .dairy-container-block { width: 94%; transform: translate(-50%, -45%); top: 52%; }
             .dairy-layout { padding: 6px 8px 12px 8px; }
             .dairy-side { font-size: 1.15rem; padding: 15px 12px; line-height: 1.4; }
             .candles-box { gap: 40px; margin-bottom: -4px; } 
             .candle { width: 18px; height: 58px; }
             .candle.center-candle { height: 78px; width: 21px; }
+            .nav-action-btn { padding: 10px 20px; font-size: 0.8rem; }
+            .diary-nav-bar { margin-top: 15px; }
         }
     </style>
 </head>
@@ -262,6 +305,11 @@
         <div class="dairy-layout">
             <div class="dairy-side side-left" id="page-left"></div>
             <div class="dairy-side side-right" id="page-right"></div>
+        </div>
+
+        <div class="diary-nav-bar">
+            <button class="nav-action-btn" id="prev-page-btn">← Previous</button>
+            <button class="nav-action-btn" id="next-page-btn">Click Here ❤️</button>
         </div>
     </div>
 
@@ -318,6 +366,28 @@
             setTimeout(() => heart.remove(), 10000); 
         }
         setInterval(createHearts, 1200);
+
+        // NAVIGATION LOGIC
+        const prevBtn = document.getElementById('prev-page-btn');
+        const nextBtn = document.getElementById('next-page-btn');
+        const diaryContainer = document.querySelector('.dairy-container-block');
+
+        // Go Back to index.html with smooth fade-out
+        prevBtn.addEventListener('click', () => {
+            diaryContainer.style.transition = 'opacity 0.6s ease';
+            diaryContainer.style.opacity = '0';
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 600);
+        });
+
+        // Click Here handler for next pages (Future addition)
+        nextBtn.addEventListener('click', () => {
+            // Jb aap dairy2.html banao tou bas neeche wali line ko uncomment (// hata dena) kr dena:
+            // window.location.href = 'dairy2.html';
+            console.log("Next diary click triggering perfectly.");
+        });
     </script>
 </body>
-</html>
+    </html>
+    
