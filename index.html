@@ -263,10 +263,10 @@
             100% { opacity: 1; box-shadow: 0 0 15px 5px #fdcb6e, 0 0 25px 12px rgba(253, 203, 110, 0.8); }
         }
 
-        /* GLOWING YELLOW CANDLES COMPONENTS */
+        /* GLOWING YELLOW CANDLES - POSITIONED FIXED RIGHT ABOVE THE DIARY */
         .candles-box {
             position: absolute;
-            top: 15%;
+            top: calc(58% - 52vh/2 - 65px); /* Automatically tracks right above the diary */
             width: 100%;
             display: flex;
             justify-content: center;
@@ -361,12 +361,13 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
+        /* SLOWED DOWN AND SMOOTH FLOATING HEARTS */
         .heart {
             position: absolute;
             color: #ff1493;
             z-index: 100;
             pointer-events: none;
-            animation: floatUp 5s linear forwards;
+            animation: floatUp 8s linear forwards; /* Increased from 5s to 8s for slow smooth speed */
         }
 
         @keyframes floatUp {
@@ -380,7 +381,7 @@
             #timer-container { font-size: 7rem; }
             .dairy-layout { height: 54vh; width: 95%; top: 60%; }
             .dairy-side { font-size: 1.2rem; padding: 18px 12px; }
-            .candles-box { gap: 35px; top: 16%; }
+            .candles-box { gap: 35px; top: calc(60% - 54vh/2 - 50px); } /* Adjusted responsive candle top */
         }
     </style>
 </head>
@@ -469,7 +470,6 @@
                 bulb.className = 'bulb';
                 const leftPercent = i * 10;
                 bulb.style.left = leftPercent + '%';
-                // Calculating a curve drop matching CSS border curve
                 const drop = Math.sin((i / 10) * Math.PI) * 22 + 5;
                 bulb.style.top = drop + 'px';
                 bulb.style.animationDelay = (i * 0.15) + 's';
@@ -531,7 +531,6 @@
                 mainContent.style.display = 'none';
                 dairyScreen.style.display = 'block';
                 
-                // Splitting paragraph smoothly across book sides
                 divideParagraphContent();
 
                 setTimeout(() => {
@@ -540,12 +539,10 @@
             }, 800);
         });
 
-        // PARAGRAPH AUTOMATIC LEVEL SPLITTER FUNCTION
         function divideParagraphContent() {
             const paragraphText = "Look at you yrrr itni haseen itni pure heart wali lrkiiii, your mom and dad must be so proud of you fr. And me? Mai tou bohat zyada proud hu ke meri life mai tm ho. I promise mai hamesha tmhara sath du ga, tmhy pyar kru ga or har situation mai tmhy special feel krwau ga because tm sirf meri favorite person nhi ho tm meri aadat ban chuki hooo💖";
             
             const middlePoint = Math.floor(paragraphText.length / 2);
-            // Splitting safely at a space to prevent breaking words midway
             const optimalSplitIndex = paragraphText.lastIndexOf(' ', middlePoint);
 
             const firstHalf = paragraphText.substring(0, optimalSplitIndex);
@@ -596,7 +593,7 @@
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.fontSize = Math.random() * 15 + 20 + 'px';
             document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 5000);
+            setTimeout(() => heart.remove(), 8000); // Handled cleanup matching new slower transition time
         }
 
         function revealSurprise() {
@@ -605,7 +602,7 @@
             timerElement.style.display = 'none';
             document.body.style.backgroundColor = "#000"; 
             mainContent.style.display = 'block';
-            setInterval(createHearts, 400); 
+            setInterval(createHearts, 800); // Increased interval from 400ms to 800ms to prevent clogging/lagging
             fixEverything();
         }
     </script>
