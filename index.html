@@ -107,15 +107,22 @@
 
         .hb-container {
             position: absolute;
-            top: 45%;
+            top: 50%;
             left: 50%;
-            transform: translate(-50%, -45%);
+            transform: translate(-50%, -50%);
             width: 90%;
+            max-height: 95vh;
+            overflow-y: auto;
             text-align: center;
             z-index: 15;
             display: flex;
             flex-direction: column;
             gap: 5px; 
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .hb-container::-webkit-scrollbar {
+            display: none;
         }
 
         .simple-text {
@@ -130,10 +137,11 @@
         }
 
         .para-box {
-            margin-top: 20px;
+            margin-top: 15px;
             padding: 15px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff;
@@ -164,6 +172,7 @@
             color: #fff;
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 2px solid rgba(255, 20, 147, 0.6);
             border-radius: 30px;
             cursor: pointer;
@@ -261,10 +270,10 @@
             100% { opacity: 1; box-shadow: 0 0 15px 5px #fdcb6e, 0 0 25px 12px rgba(253, 203, 110, 0.8); }
         }
 
-        /* ATTRACTIVE CARVED CYLINDRICAL PILLAR CANDLES */
+        /* CANDLES POSITION DYNAMICALLY ADJUSTED ABOVE DAIRY */
         .candles-box {
             position: absolute;
-            top: calc(58% - 25vh - 78px); 
+            bottom: calc(50% + 18vh); 
             width: 100%;
             display: flex;
             justify-content: center;
@@ -276,12 +285,11 @@
             width: 24px;
             height: 68px;
             background: linear-gradient(to right, #e29c36 0%, #ffeaa7 25%, #fdcb6e 60%, #c98422 100%);
-            border-radius: 12px 12px 3px 3px; /* Rounded top edge for natural melting wax look */
+            border-radius: 12px 12px 3px 3px;
             position: relative;
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
 
-        /* Melted wax drop styling artifact */
         .candle::before {
             content: '';
             position: absolute;
@@ -323,31 +331,28 @@
             100% { transform: translateX(-50%) scale(1.05) rotate(1.5deg); }
         }
 
-        /* ATTRACTIVE 3D BOOK CASING WITH MULTI-PAGE EMBOSSED DEPTH LINES */
+        /* AUTO-HEIGHT RESPONSIVE DAIRY BOX WITH NO OVERFLOW INTERNALLY */
         .dairy-layout {
             position: absolute;
-            top: 58%;
+            top: 55%;
             left: 50%;
-            transform: translate(-50%, -43%);
+            transform: translate(-50%, -50%);
             width: 92%;
             max-width: 660px;
-            height: 50vh;
-            background: #2b1404; /* Luxury dark leather spine base */
+            height: auto;
+            max-height: 34vh;
+            background: #2b1404; 
             border-radius: 12px;
             display: flex;
-            padding: 6px 12px 14px 12px; /* Bottom & side margins to reveal underlying pages stack */
+            padding: 6px 12px 14px 12px; 
             box-sizing: border-box;
-            
-            /* Realistic Multi-layered stack shadows at borders */
             box-shadow: 
                 0 30px 65px rgba(0,0,0,0.9),
                 inset 0 0 20px rgba(0,0,0,0.8),
-                /* Horizontal stacked pages visual stripes at outer borders */
                 0 4px 0 #ebdcb2, 0 8px 0 #3a1e05, 
                 0 9px 0 #ebdcb2, 0 13px 0 #1a0d03;
         }
 
-        /* Center Book spine shadow separation line */
         .dairy-layout::before {
             content: '';
             position: absolute;
@@ -357,47 +362,40 @@
             z-index: 10;
         }
 
-        /* REALISTIC BOOK SIDE WITH UNDERLYING PAGES SIDE EFFECT */
         .dairy-side {
             flex: 1;
-            padding: 30px 22px;
-            overflow-y: auto;
+            padding: 20px 15px;
+            overflow: hidden;
             box-sizing: border-box;
             font-family: 'Dancing Script', cursive;
-            font-size: 1.5rem;
-            line-height: 1.6;
+            font-size: 1.4rem;
+            line-height: 1.4;
             color: #2a180a;
             background: #fffdf2;
             position: relative;
             z-index: 2;
-            
-            /* Textured soft book shadow effect */
             background-image: linear-gradient(to right, rgba(0,0,0,0.04), transparent 15%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
 
-        /* LEFT SIDE MULTI-PAGE STACK SIDES AESTHETICS */
         .dairy-side.side-left {
             border-radius: 8px 0 0 8px;
             border-right: 1px solid rgba(0, 0, 0, 0.08);
-            padding-right: 20px;
-            /* Underneath side pages contour effect */
             box-shadow: 
                 inset 12px 0 20px rgba(0,0,0,0.04),
                 inset -3px 0 10px rgba(184, 153, 106, 0.15),
-                /* Simulated stack borders */
                 -3px 0 0 #f4edd4, -6px 0 0 #e6dcbe;
             margin-left: 4px;
         }
 
-        /* RIGHT SIDE MULTI-PAGE STACK SIDES AESTHETICS */
         .dairy-side.side-right {
             border-radius: 0 8px 8px 0;
-            padding-left: 20px;
-            /* Underneath side pages contour effect */
             box-shadow: 
                 inset -12px 0 20px rgba(0,0,0,0.04),
                 inset 3px 0 10px rgba(184, 153, 106, 0.15),
-                /* Simulated stack borders */
                 3px 0 0 #f4edd4, 6px 0 0 #e6dcbe;
             margin-right: 4px;
             background-image: linear-gradient(to left, rgba(0,0,0,0.03), transparent 15%);
@@ -413,26 +411,28 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
+        /* OPTIMIZED PERFORMANCE HEARTS WITH HARDWARE ACCELERATION */
         .heart {
             position: absolute;
             color: #ff1493;
             z-index: 100;
             pointer-events: none;
-            animation: floatUp 7s linear forwards; 
+            will-change: transform, opacity;
+            animation: floatUp 10s linear forwards; 
         }
 
         @keyframes floatUp {
-            0% { transform: translateY(110vh); opacity: 1; }
-            100% { transform: translateY(-10vh); opacity: 0; }
+            0% { transform: translate3d(0, 105vh, 0); opacity: 1; }
+            100% { transform: translate3d(0, -15vh, 0); opacity: 0; }
         }
 
         @media (max-width: 768px) {
-            .simple-text { font-size: 2.5rem; }
+            .simple-text { font-size: 2.3rem; }
             .para-box { font-size: 0.85rem; padding: 12px; }
-            #timer-container { font-size: 7rem; }
-            .dairy-layout { height: 54vh; width: 95%; top: 60%; padding: 5px 8px 10px 8px; }
-            .dairy-side { font-size: 1.25rem; padding: 22px 14px; }
-            .candles-box { gap: 42px; top: calc(60% - 27vh - 74px); } 
+            #timer-container { font-size: 6rem; }
+            .dairy-layout { max-height: 40vh; width: 95%; top: 55%; padding: 5px 8px 10px 8px; }
+            .dairy-side { font-size: 1.15rem; padding: 12px 10px; line-height: 1.35; }
+            .candles-box { gap: 42px; bottom: calc(50% + 21vh); } 
             .candle { width: 20px; height: 62px; }
             .candle.center-candle { height: 84px; width: 22px; top: -22px; }
         }
@@ -596,8 +596,8 @@
             const firstHalf = paragraphText.substring(0, optimalSplitIndex);
             const secondHalf = paragraphText.substring(optimalSplitIndex);
 
-            document.getElementById('page-left').innerHTML = firstHalf;
-            document.getElementById('page-right').innerHTML = secondHalf;
+            document.getElementById('page-left').innerHTML = `<span>${firstHalf}</span>`;
+            document.getElementById('page-right').innerHTML = `<span>${secondHalf}</span>`;
         }
 
         const dotSize = 4.5;
@@ -639,9 +639,9 @@
             heart.innerHTML = '💖';
             heart.className = 'heart';
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.fontSize = Math.random() * 15 + 20 + 'px';
+            heart.style.fontSize = Math.random() * 12 + 18 + 'px';
             document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 7000); 
+            setTimeout(() => heart.remove(), 10000); 
         }
 
         function revealSurprise() {
@@ -650,7 +650,7 @@
             timerElement.style.display = 'none';
             document.body.style.backgroundColor = "#000"; 
             mainContent.style.display = 'block';
-            setInterval(createHearts, 750); 
+            setInterval(createHearts, 1200); 
             fixEverything();
         }
     </script>
