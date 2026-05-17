@@ -90,6 +90,7 @@
             top: 0;
             left: 0;
             z-index: 10;
+            transition: opacity 0.8s ease;
         }
 
         .bg-image {
@@ -108,11 +109,10 @@
             position: absolute;
             top: 45%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -45%);
             width: 90%;
             text-align: center;
             z-index: 15;
-            pointer-events: none;
             display: flex;
             flex-direction: column;
             gap: 5px; 
@@ -144,6 +144,8 @@
             opacity: 0;
             animation: slideUpFade 1.5s ease-out 1s forwards;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
         }
 
         .para-highlight {
@@ -152,6 +154,147 @@
             display: block;
             margin-bottom: 8px;
             font-size: 1.1rem;
+        }
+
+        /* GLASS EFFECT CLICK HERE BUTTON WITH ANIMATION */
+        .click-here-btn {
+            margin: 15px auto 5px auto;
+            padding: 12px 35px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 20, 147, 0.6);
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 20, 147, 0.2);
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: floatButton 2.5s ease-in-out infinite;
+            pointer-events: auto !important;
+        }
+
+        .click-here-btn:hover {
+            background: rgba(255, 20, 147, 0.3);
+            box-shadow: 0 0 25px rgba(255, 20, 147, 0.6);
+            transform: scale(1.05);
+        }
+
+        @keyframes floatButton {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        /* DAIRY SCREEN AND STYLES */
+        #dairy-screen {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, #150a18, #000000);
+            z-index: 50;
+            opacity: 0;
+            transition: opacity 1.2s ease;
+            box-sizing: border-box;
+        }
+
+        /* NIGHT AMBIENT RADIAL GLOW */
+        .ambient-glow {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 20%, rgba(255, 179, 0, 0.18) 0%, transparent 80%);
+            pointer-events: none;
+            z-index: 52;
+        }
+
+        /* GLOWING YELLOW CANDLES COMPONENTS */
+        .candles-box {
+            position: absolute;
+            top: 8%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            z-index: 55;
+        }
+
+        .candle {
+            width: 20px;
+            height: 55px;
+            background: linear-gradient(to right, #ffeaa7, #fdcb6e);
+            border-radius: 4px;
+            position: relative;
+            box-shadow: 0 0 20px rgba(253, 203, 110, 0.3);
+        }
+
+        .candle.center-candle { height: 75px; top: -20px; width: 22px; }
+
+        .flame {
+            width: 14px;
+            height: 24px;
+            background: #ffb300;
+            border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
+            position: absolute;
+            top: -26px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: candleFlicker 0.15s ease-in-out infinite alternate;
+            box-shadow: 0 0 25px 8px rgba(255, 165, 0, 0.8), 0 0 50px 18px rgba(253, 203, 110, 0.5);
+        }
+
+        @keyframes candleFlicker {
+            0% { transform: translateX(-50%) scale(1) rotate(-1deg); filter: brightness(1); }
+            100% { transform: translateX(-50%) scale(1.06) rotate(1.5deg); filter: brightness(1.2); }
+        }
+
+        /* BEAUTIFUL 3D OPEN DAIRY SYSTEM */
+        .dairy-layout {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -43%);
+            width: 92%;
+            max-width: 660px;
+            height: 52vh;
+            background: #fffef2; 
+            border-radius: 10px;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.85), inset 0 0 40px rgba(215, 198, 162, 0.4);
+            display: flex;
+            border: 6px solid #3d2414; 
+            overflow: hidden;
+        }
+
+        /* Middle line divider */
+        .dairy-layout::before {
+            content: '';
+            position: absolute;
+            left: 50%; top: 0; width: 2px; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.08), rgba(0,0,0,0.35));
+            box-shadow: 0 0 8px rgba(0,0,0,0.4);
+            z-index: 5;
+        }
+
+        .dairy-side {
+            flex: 1;
+            padding: 25px 20px;
+            overflow-y: auto;
+            box-sizing: border-box;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.45rem;
+            line-height: 1.6;
+            color: #21150a;
+            text-shadow: 0px 0px 1px rgba(0,0,0,0.03);
+        }
+
+        .dairy-side.side-left {
+            border-right: 1px solid rgba(0, 0, 0, 0.04);
+            padding-right: 18px;
+        }
+
+        .dairy-side.side-right {
+            padding-left: 18px;
         }
 
         @keyframes fadeInScale {
@@ -181,6 +324,9 @@
             .simple-text { font-size: 2.5rem; }
             .para-box { font-size: 0.85rem; padding: 12px; }
             #timer-container { font-size: 7rem; }
+            .dairy-layout { height: 58vh; width: 95%; }
+            .dairy-side { font-size: 1.2rem; padding: 18px 12px; }
+            .candles-box { gap: 35px; top: 6%; }
         }
     </style>
 </head>
@@ -190,7 +336,6 @@
         <button id="start-btn">Click to Open Surprise ❤️</button>
     </div>
 
-    <!-- Dropbox link with dl=1 for instant access -->
     <audio id="bg-music" loop preload="auto">
         <source src="https://www.dropbox.com/scl/fi/yoycoouq45y8ydzutv9z7/Indila_-_Love_Story__Piano_Cover_-48k.mp3?rlkey=tncy3j3mf43y1p1f72fhzg01l&st=8c436b25&dl=1" type="audio/mpeg">
     </audio>
@@ -207,7 +352,26 @@
             <div class="para-box">
                 <span class="para-highlight">HAPPY BIRTHDAY TO THE PRETTIEST SOUL EVER ANOOSHAAA!!!!!🎉🎉</span>
                 tm sirf meri life ka part nhi ho tm meri life ki sabse pyari wajah ho. Yr jb se tm ayi ho na sab kuch alag sa haseen lagta hai hr lamha tmhry sth guzara howa bohat qeemti hai chahy wo hmari narazgi wala waqt hi q na ho , Anoosha tmny mjhy acha insan bnaya hai mene tmhy apna past btaya hai na ke i was play boy tou tmne mujhy pyar krna care krna or kisi ki value smjhna sikhaya hai. I swear tmhari smile meri fav hai or jb tm khush hoti ho na tou mjhy b likee ajeeb c khushi feel hoti aesa lgta bss hn yehi chahiya tha tmhy khush dekhna
+                
+                <button class="click-here-btn" id="trigger-dairy-btn">Click Here ❤️</button>
             </div>
+        </div>
+    </div>
+
+    <div id="dairy-screen">
+        <div class="ambient-glow"></div>
+        
+        <div class="candles-box">
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle center-candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+        </div>
+
+        <div class="dairy-layout">
+            <div class="dairy-side side-left" id="page-left">
+                </div>
+            <div class="dairy-side side-right" id="page-right">
+                </div>
         </div>
     </div>
 
@@ -219,6 +383,9 @@
         const startBtn = document.getElementById('start-btn');
         const overlay = document.getElementById('start-overlay');
         const timerElement = document.getElementById('timer-container');
+        
+        const triggerDairyBtn = document.getElementById('trigger-dairy-btn');
+        const dairyScreen = document.getElementById('dairy-screen');
 
         // Audio optimization
         let audioCtx;
@@ -245,7 +412,6 @@
         fixEverything();
 
         startBtn.addEventListener('click', () => {
-            // SAKHT CHANGING: Initialize audio context and play immediately
             initAudio();
             music.muted = false;
             music.currentTime = 0;
@@ -264,6 +430,38 @@
             
             startCountdown();
         });
+
+        // ACTION EVENT FOR SWITCHING TO DAIRY
+        triggerDairyBtn.addEventListener('click', () => {
+            mainContent.style.opacity = '0';
+            
+            setTimeout(() => {
+                mainContent.style.display = 'none';
+                dairyScreen.style.display = 'block';
+                
+                // Splitting paragraph smoothly across book sides
+                divideParagraphContent();
+
+                setTimeout(() => {
+                    dairyScreen.style.opacity = '1';
+                }, 50);
+            }, 800);
+        });
+
+        // PARAGRAPH AUTOMATIC LEVEL SPLITTER FUNCTION
+        function divideParagraphContent() {
+            const paragraphText = "Look at you yrrr itni haseen itni pure heart wali lrkiiii, your mom and dad must be so proud of you fr. And me? Mai tou bohat zyada proud hu ke meri life mai tm ho. I promise mai hamesha tmhara sath du ga, tmhy pyar kru ga or har situation mai tmhy special feel krwau ga because tm sirf meri favorite person nhi ho tm meri aadat ban chuki hooo💖";
+            
+            const middlePoint = Math.floor(paragraphText.length / 2);
+            // Splitting safely at a space to prevent breaking words midway
+            const optimalSplitIndex = paragraphText.lastIndexOf(' ', middlePoint);
+
+            const firstHalf = paragraphText.substring(0, optimalSplitIndex);
+            const secondHalf = paragraphText.substring(optimalSplitIndex);
+
+            document.getElementById('page-left').innerHTML = firstHalf;
+            document.getElementById('page-right').innerHTML = secondHalf;
+        }
 
         const dotSize = 4.5;
         const spacing = 15;
