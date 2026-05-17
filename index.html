@@ -193,17 +193,17 @@
             50% { transform: translateY(-6px); }
         }
 
-        /* --- DIARY SCREEN SPECIFIC STYLES --- */
+        /* --- DIARY SCREEN SPECIFIC STYLES (CHANGED TO WHITE BACKGROUND) --- */
         #diary-content {
             display: none;
             z-index: 12;
-            background: linear-gradient(to bottom, #120716, #000000);
+            background: #ffffff; /* FIXED: Changed from dark gradient to solid white */
         }
 
         .ambient-glow {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 22%, rgba(253, 180, 70, 0.22) 0%, transparent 65%);
+            background: radial-gradient(circle at 50% 22%, rgba(253, 180, 70, 0.15) 0%, transparent 65%);
             pointer-events: none;
             z-index: 52;
         }
@@ -218,8 +218,8 @@
         .light-wire {
             position: absolute;
             width: 110%; height: 40px;
-            border: solid 1px rgba(255,255,255,0.15);
-            border-color: rgba(20,20,20,0.7) transparent transparent transparent;
+            border: solid 1px rgba(0, 0, 0, 0.08); /* FIXED: Wire color adjusted for white background */
+            border-color: rgba(100, 100, 100, 0.3) transparent transparent transparent;
             border-radius: 50%/20px 20px 0 0;
             left: -5%;
         }
@@ -232,10 +232,10 @@
             width: 8px; height: 14px;
             background: #fff5cc;
             border-radius: 50% 50% 40% 40% / 40% 40% 60% 60%;
-            box-shadow: 0 0 12px 4px #fdcb6e, 0 0 20px 8px rgba(253, 203, 110, 0.6);
+            box-shadow: 0 0 12px 4px #fdcb6e, 0 0 20px 8px rgba(253, 203, 110, 0.4);
             animation: warmGlow 1.5s ease-in-out infinite alternate;
         }
-        .bulb::before { content: ''; position: absolute; top: -3px; left: 2px; width: 4px; height: 3px; background: #222; }
+        .bulb::before { content: ''; position: absolute; top: -3px; left: 2px; width: 4px; height: 3px; background: #666; }
 
         .dairy-container-block {
             position: absolute;
@@ -254,7 +254,7 @@
         .candle {
             width: 24px; height: 68px;
             background: linear-gradient(to right, #e29c36 0%, #ffeaa7 25%, #fdcb6e 60%, #c98422 100%);
-            border-radius: 12px 12px 3px 3px; position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            border-radius: 12px 12px 3px 3px; position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
         .candle::before { content: ''; position: absolute; top: 8px; left: 4px; width: 4px; height: 12px; background: rgba(255, 255, 255, 0.5); border-radius: 2px; opacity: 0.4; }
         .candle.center-candle { height: 90px; width: 26px; }
@@ -266,7 +266,7 @@
             border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
             position: absolute; top: -30px; left: 50%; transform: translateX(-50%);
             animation: candleFlicker 0.13s ease-in-out infinite alternate;
-            box-shadow: 0 0 30px 10px rgba(255, 140, 0, 0.8), 0 0 60px 20px rgba(253, 203, 110, 0.5);
+            box-shadow: 0 0 30px 10px rgba(255, 140, 0, 0.6), 0 0 60px 20px rgba(253, 203, 110, 0.3);
         }
 
         @keyframes candleFlicker {
@@ -277,13 +277,13 @@
         .dairy-layout {
             width: 100%; height: auto; background: #361b07; border-radius: 14px;
             display: flex; padding: 10px 14px 18px 14px; box-sizing: border-box;
-            box-shadow: 0 25px 55px rgba(0,0,0,0.85), inset 0 0 15px rgba(0,0,0,0.7), 0 4px 0 #ebdcb2, 0 8px 0 #1f0f04, 0 9px 0 #ebdcb2, 0 14px 0 rgba(0,0,0,0.6);
+            box-shadow: 0 25px 55px rgba(0,0,0,0.25), inset 0 0 15px rgba(0,0,0,0.7), 0 4px 0 #ebdcb2, 0 8px 0 #1f0f04, 0 9px 0 #ebdcb2, 0 14px 0 rgba(0,0,0,0.1);
             position: relative;
         }
 
         .dairy-layout::before {
             content: ''; position: absolute; left: 50%; top: 0; width: 6px; height: 100%; transform: translateX(-50%);
-            background: linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.4)); z-index: 10;
+            background: linear-gradient(to right, rgba(0,0,0,0.3), rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.3)); z-index: 10;
         }
 
         .dairy-side {
@@ -307,13 +307,13 @@
 
         .nav-action-btn {
             padding: 12px 30px; font-size: 0.95rem; font-weight: 700; color: #fff;
-            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 20, 147, 0.5); border-radius: 30px; cursor: pointer;
+            background: rgba(255, 20, 147, 0.8); /* FIXED: White background ke sath text base adjust krne k liye button thoda solid kiya */
+            border: 2px solid rgba(255, 20, 147, 0.9); border-radius: 30px; cursor: pointer;
             box-shadow: 0 0 15px rgba(255, 20, 147, 0.15); transition: all 0.3s ease; font-family: 'Montserrat', sans-serif;
             text-transform: uppercase; letter-spacing: 1px;
         }
 
-        .nav-action-btn:hover { background: rgba(255, 20, 147, 0.25); box-shadow: 0 0 25px rgba(255, 20, 147, 0.5); transform: scale(1.04); }
+        .nav-action-btn:hover { background: rgba(255, 20, 147, 1); box-shadow: 0 0 25px rgba(255, 20, 147, 0.5); transform: scale(1.04); }
 
         /* GENERAL HEARTS SHIFT */
         .heart {
@@ -471,7 +471,6 @@
             setTimeout(() => {
                 mainContent.style.display = 'none';
                 diaryContent.style.display = 'block';
-                // Trigger reflow to initiate smooth transition
                 diaryContent.offsetHeight;
                 diaryContent.classList.remove('hidden');
             }, 800);
@@ -488,7 +487,6 @@
         });
 
         nextBtn.addEventListener('click', () => {
-            // Future update point for dairy2.html
             console.log("Next diary click triggering perfectly.");
         });
 
