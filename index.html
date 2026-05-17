@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -197,185 +196,171 @@
             50% { transform: translateY(-6px); }
         }
 
-        /* DAIRY SCREEN AND STYLES */
+        /* DYNAMIC RESPONSIVE BACKGROUND FOR SURPRISE SCREEN */
         #dairy-screen {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, #120716, #000000);
+            background: linear-gradient(135deg, #15091a 0%, #050208 100%);
             z-index: 50;
             opacity: 0;
-            transition: opacity 1.2s ease;
+            transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1);
             box-sizing: border-box;
         }
 
         .ambient-glow {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 22%, rgba(253, 180, 70, 0.22) 0%, transparent 65%);
+            background: radial-gradient(circle at 50% 35%, rgba(253, 150, 60, 0.18) 0%, transparent 60%);
             pointer-events: none;
             z-index: 52;
         }
 
-        /* HANGING STRING LIGHTS EFFECT */
+        /* STRING LIGHTS OPTIMIZED EFFECT */
         .string-lights {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 120px;
+            top: 0; left: 0; width: 100%; height: 120px;
             z-index: 56;
             pointer-events: none;
         }
 
         .light-wire {
             position: absolute;
-            width: 110%;
-            height: 40px;
-            border: solid 1px rgba(255,255,255,0.15);
-            border-color: rgba(20,20,20,0.7) transparent transparent transparent;
+            width: 110%; height: 40px;
+            border: solid 1px rgba(255,255,255,0.08);
+            border-color: rgba(30,20,10,0.6) transparent transparent transparent;
             border-radius: 50%/20px 20px 0 0;
             left: -5%;
         }
         
-        .wire-1 { top: -5px; transform: rotate(1deg); }
-        .wire-2 { top: 15px; transform: rotate(-2deg); }
+        .wire-1 { top: -5px; transform: rotate(0.5deg); }
+        .wire-2 { top: 18px; transform: rotate(-1deg); }
 
         .bulb-group {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0; left: 0;
+            width: 100%; height: 100%; top: 0; left: 0;
         }
 
         .bulb {
             position: absolute;
-            width: 8px;
-            height: 14px;
-            background: #fff5cc;
+            width: 7px; height: 13px;
+            background: #fff6d1;
             border-radius: 50% 50% 40% 40% / 40% 40% 60% 60%;
-            box-shadow: 0 0 12px 4px #fdcb6e, 0 0 20px 8px rgba(253, 203, 110, 0.6);
-            animation: warmGlow 1.5s ease-in-out infinite alternate;
+            box-shadow: 0 0 10px 3px #fdcb6e;
+            transform: translateZ(0); /* Hardware Acceleration Trigger */
         }
         
         .bulb::before {
-            content: '';
-            position: absolute;
-            top: -3px; left: 2px;
-            width: 4px; height: 3px;
-            background: #222;
+            content: ''; position: absolute;
+            top: -2px; left: 2px; width: 3px; height: 2px;
+            background: #333;
         }
 
-        @keyframes warmGlow {
-            0% { opacity: 0.85; box-shadow: 0 0 10px 3px #fdcb6e, 0 0 18px 6px rgba(253, 203, 110, 0.5); }
-            100% { opacity: 1; box-shadow: 0 0 15px 5px #fdcb6e, 0 0 25px 12px rgba(253, 203, 110, 0.8); }
-        }
-
-        /* CANDLES POSITION DYNAMICALLY ADJUSTED ABOVE DAIRY */
+        /* PERFECT CANDLES PLACEMENT RIGHT ABOVE THE DAIRY */
         .candles-box {
             position: absolute;
-            bottom: calc(50% + 18vh); 
-            width: 100%;
+            top: calc(50% - 250px); /* Centers right in the marked empty spot */
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
             justify-content: center;
-            gap: 60px;
+            align-items: flex-end;
+            gap: 45px;
             z-index: 55;
+            width: auto;
+            height: 100px;
         }
 
         .candle {
-            width: 24px;
-            height: 68px;
-            background: linear-gradient(to right, #e29c36 0%, #ffeaa7 25%, #fdcb6e 60%, #c98422 100%);
-            border-radius: 12px 12px 3px 3px;
+            width: 18px;
+            height: 60px;
+            background: linear-gradient(to right, #dd9127 0%, #fff0b3 25%, #fbbd43 60%, #b87314 100%);
+            border-radius: 6px 6px 3px 3px;
             position: relative;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
         }
 
         .candle::before {
-            content: '';
-            position: absolute;
-            top: 8px; left: 4px; width: 4px; height: 12px;
-            background: rgba(255, 255, 255, 0.5);
+            content: ''; position: absolute;
+            top: 6px; left: 3px; width: 3px; height: 10px;
+            background: rgba(255, 255, 255, 0.4);
             border-radius: 2px;
-            opacity: 0.4;
+            opacity: 0.3;
         }
 
         .candle.center-candle { 
-            height: 90px; 
-            top: -22px; 
-            width: 26px; 
+            height: 78px; 
+            width: 20px; 
         }
 
         .wick {
             position: absolute;
-            top: -6px; left: 50%;
+            top: -5px; left: 50%;
             transform: translateX(-50%);
-            width: 2px; height: 7px;
-            background: #111;
+            width: 1.5px; height: 6px;
+            background: #222;
         }
 
         .flame {
-            width: 16px;
-            height: 26px;
-            background: radial-gradient(circle at 50% 80%, #ffffff 10%, #ffea88 30%, #ff9400 70%);
+            width: 12px; height: 22px;
+            background: radial-gradient(circle at 50% 80%, #ffffff 15%, #ffea88 40%, #ff8000 80%);
             border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
             position: absolute;
-            top: -30px;
-            left: 50%;
+            top: -24px; left: 50%;
             transform: translateX(-50%);
-            animation: candleFlicker 0.13s ease-in-out infinite alternate;
-            box-shadow: 0 0 30px 10px rgba(255, 140, 0, 0.8), 0 0 60px 20px rgba(253, 203, 110, 0.5);
+            animation: candleFlicker 0.15s ease-in-out infinite alternate;
+            box-shadow: 0 0 20px 6px rgba(255, 128, 0, 0.7), 0 0 40px 12px rgba(253, 203, 110, 0.4);
+            transform-origin: center bottom;
         }
 
         @keyframes candleFlicker {
-            0% { transform: translateX(-50%) scale(0.95) rotate(-1deg); }
-            100% { transform: translateX(-50%) scale(1.05) rotate(1.5deg); }
+            0% { transform: translateX(-50%) scale(0.96) rotate(-0.5deg); }
+            100% { transform: translateX(-50%) scale(1.04) rotate(1deg); }
         }
 
-        /* AUTO-HEIGHT RESPONSIVE DAIRY BOX WITH NO OVERFLOW INTERNALLY */
+        /* PREMIUM ROYAL UNIQUE DAIRY DESIGN */
         .dairy-layout {
             position: absolute;
-            top: 55%;
+            top: calc(50% + 50px); /* Perfectly aligns below the repositioned candles */
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 92%;
-            max-width: 660px;
-            height: auto;
-            max-height: 34vh;
-            background: #2b1404; 
+            width: 90%;
+            max-width: 580px;
+            height: 320px;
+            background: linear-gradient(135deg, #421d07 0%, #210d02 100%); /* Elegant leather cover vibe */
             border-radius: 12px;
             display: flex;
-            padding: 6px 12px 14px 12px; 
+            padding: 8px;
             box-sizing: border-box;
             box-shadow: 
-                0 30px 65px rgba(0,0,0,0.9),
-                inset 0 0 20px rgba(0,0,0,0.8),
-                0 4px 0 #ebdcb2, 0 8px 0 #3a1e05, 
-                0 9px 0 #ebdcb2, 0 13px 0 #1a0d03;
+                0 25px 55px rgba(0,0,0,0.85),
+                inset 0 0 15px rgba(0,0,0,0.6),
+                0 4px 0 #dfcd9f, 0 8px 0 #2b1404, 
+                0 10px 20px rgba(0,0,0,0.4);
         }
 
+        /* Golden spine binding look */
         .dairy-layout::before {
             content: '';
             position: absolute;
-            left: 50%; top: 0; width: 4px; height: 100%;
+            left: 50%; top: 0; width: 6px; height: 100%;
             transform: translateX(-50%);
-            background: linear-gradient(to right, rgba(0,0,0,0.5), rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.5));
+            background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(197,160,89,0.3) 50%, rgba(0,0,0,0.6));
             z-index: 10;
         }
 
         .dairy-side {
             flex: 1;
-            padding: 20px 15px;
+            padding: 25px 18px;
             overflow: hidden;
             box-sizing: border-box;
             font-family: 'Dancing Script', cursive;
             font-size: 1.4rem;
-            line-height: 1.4;
-            color: #2a180a;
-            background: #fffdf2;
+            line-height: 1.45;
+            color: #2b1a0e;
+            background: #fffef5; /* Premium matte paper shade */
             position: relative;
             z-index: 2;
-            background-image: linear-gradient(to right, rgba(0,0,0,0.04), transparent 15%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -383,23 +368,36 @@
         }
 
         .dairy-side.side-left {
-            border-radius: 8px 0 0 8px;
-            border-right: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 6px 0 0 6px;
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
             box-shadow: 
-                inset 12px 0 20px rgba(0,0,0,0.04),
-                inset -3px 0 10px rgba(184, 153, 106, 0.15),
-                -3px 0 0 #f4edd4, -6px 0 0 #e6dcbe;
-            margin-left: 4px;
+                inset 15px 0 25px rgba(0,0,0,0.03),
+                inset -5px 0 12px rgba(184, 153, 106, 0.12),
+                -2px 0 0 #f0e7ca;
         }
 
         .dairy-side.side-right {
-            border-radius: 0 8px 8px 0;
+            border-radius: 0 6px 6px 0;
             box-shadow: 
-                inset -12px 0 20px rgba(0,0,0,0.04),
-                inset 3px 0 10px rgba(184, 153, 106, 0.15),
-                3px 0 0 #f4edd4, 6px 0 0 #e6dcbe;
-            margin-right: 4px;
-            background-image: linear-gradient(to left, rgba(0,0,0,0.03), transparent 15%);
+                inset -15px 0 25px rgba(0,0,0,0.03),
+                inset 5px 0 12px rgba(184, 153, 106, 0.12),
+                3px 0 0 #f0e7ca;
+            background-image: linear-gradient(to left, rgba(0,0,0,0.02), transparent 10%);
+        }
+
+        /* SMOOTH FLOATING HEARTS - REMOVED HEAVY LOGIC FOR ZERO LAG */
+        .heart {
+            position: absolute;
+            color: #ff1493;
+            z-index: 100;
+            pointer-events: none;
+            will-change: transform, opacity;
+            animation: floatUp 7s linear forwards; 
+        }
+
+        @keyframes floatUp {
+            0% { transform: translate3d(0, 105vh, 0) scale(0.8); opacity: 1; }
+            100% { transform: translate3d(0, -10vh, 0) scale(1.1); opacity: 0; }
         }
 
         @keyframes fadeInScale {
@@ -412,30 +410,28 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* OPTIMIZED PERFORMANCE HEARTS WITH HARDWARE ACCELERATION */
-        .heart {
-            position: absolute;
-            color: #ff1493;
-            z-index: 100;
-            pointer-events: none;
-            will-change: transform, opacity;
-            animation: floatUp 10s linear forwards; 
-        }
-
-        @keyframes floatUp {
-            0% { transform: translate3d(0, 105vh, 0); opacity: 1; }
-            100% { transform: translate3d(0, -15vh, 0); opacity: 0; }
-        }
-
+        /* MOBILE ADJUSTMENTS (LAG PROTECTION EXTRA) */
         @media (max-width: 768px) {
-            .simple-text { font-size: 2.3rem; }
+            .simple-text { font-size: 2.2rem; }
             .para-box { font-size: 0.85rem; padding: 12px; }
-            #timer-container { font-size: 6rem; }
-            .dairy-layout { max-height: 40vh; width: 95%; top: 55%; padding: 5px 8px 10px 8px; }
-            .dairy-side { font-size: 1.15rem; padding: 12px 10px; line-height: 1.35; }
-            .candles-box { gap: 42px; bottom: calc(50% + 21vh); } 
-            .candle { width: 20px; height: 62px; }
-            .candle.center-candle { height: 84px; width: 22px; top: -22px; }
+            #timer-container { font-size: 5.5rem; }
+            
+            .dairy-layout { 
+                height: 270px; 
+                width: 94%; 
+                top: calc(50% + 40px);
+                padding: 6px; 
+            }
+            .dairy-side { font-size: 1.15rem; padding: 14px 10px; line-height: 1.4; }
+            
+            .candles-box { 
+                gap: 32px; 
+                top: calc(50% - 215px);
+                height: 80px;
+            } 
+            .candle { width: 14px; height: 50px; }
+            .candle.center-candle { height: 64px; width: 16px; }
+            .flame { width: 10px; height: 18px; top: -20px; }
         }
     </style>
 </head>
@@ -519,22 +515,16 @@
             for (let i = 0; i <= 10; i++) {
                 const bulb = document.createElement('div');
                 bulb.className = 'bulb';
-                const leftPercent = i * 10;
-                bulb.style.left = leftPercent + '%';
-                const drop = Math.sin((i / 10) * Math.PI) * 22 + 5;
-                bulb.style.top = drop + 'px';
-                bulb.style.animationDelay = (i * 0.15) + 's';
+                bulb.style.left = (i * 10) + '%';
+                bulb.style.top = (Math.sin((i / 10) * Math.PI) * 20 + 5) + 'px';
                 layer1.appendChild(bulb);
             }
 
             for (let i = 0; i <= 8; i++) {
                 const bulb = document.createElement('div');
                 bulb.className = 'bulb';
-                const leftPercent = 5 + (i * 11.2);
-                bulb.style.left = leftPercent + '%';
-                const drop = Math.sin((i / 8) * Math.PI) * 24 + 25;
-                bulb.style.top = drop + 'px';
-                bulb.style.animationDelay = (i * 0.2) + 's';
+                bulb.style.left = (5 + (i * 11.2)) + '%';
+                bulb.style.top = (Math.sin((i / 8) * Math.PI) * 22 + 25) + 'px';
                 layer2.appendChild(bulb);
             }
         }
@@ -560,10 +550,7 @@
             const playPromise = music.play();
             
             if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log("Auto-play prevented, retrying...");
-                    music.play();
-                });
+                playPromise.catch(() => music.play());
             }
 
             overlay.style.display = 'none';
@@ -636,13 +623,16 @@
         }
 
         function createHearts() {
+            // Limited active hearts count to prevent mobile processor lag
+            if (document.querySelectorAll('.heart').length > 8) return; 
+            
             const heart = document.createElement('div');
             heart.innerHTML = '💖';
             heart.className = 'heart';
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.fontSize = Math.random() * 12 + 18 + 'px';
+            heart.style.fontSize = Math.random() * 8 + 16 + 'px';
             document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 10000); 
+            setTimeout(() => heart.remove(), 7000); 
         }
 
         function revealSurprise() {
@@ -651,7 +641,7 @@
             timerElement.style.display = 'none';
             document.body.style.backgroundColor = "#000"; 
             mainContent.style.display = 'block';
-            setInterval(createHearts, 1200); 
+            setInterval(createHearts, 1500); 
             fixEverything();
         }
     </script>
