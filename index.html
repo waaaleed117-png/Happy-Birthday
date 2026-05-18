@@ -197,7 +197,7 @@
         #diary-content {
             display: none;
             z-index: 12;
-            background: #fffdf4; 
+            background: transparent; 
         }
 
         .ambient-glow {
@@ -239,9 +239,9 @@
 
         .dairy-container-block {
             position: absolute;
-            top: 54%; left: 50%;
-            transform: translate(-50%, -45%);
-            width: 95%; max-width: 660px;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -46%);
+            width: 95%; max-width: 680px;
             display: flex; flex-direction: column; align-items: center;
             z-index: 54;
         }
@@ -274,10 +274,16 @@
             100% { transform: translateX(-50%) scale(1.05) rotate(1.5deg); }
         }
 
-        /* --- NEW SPIRAL PINK DIARY BACKGROUND --- */
+        /* --- STABLE DIARY BLOCK TO PREVENT OVERFLOW OUTSIDE LINES --- */
+        .dairy-layout-wrapper {
+            width: 100%;
+            mix-blend-mode: multiply; 
+            display: flex;
+            justify-content: center;
+        }
+
         .dairy-layout {
             width: 100%; 
-            aspect-ratio: 660 / 440;
             background-image: url('https://i.ibb.co/LDqZdjnR/99bea3f5f4362cc682ac1c6a55ed2113.jpg');
             background-size: 100% 100%;
             background-repeat: no-repeat;
@@ -285,12 +291,10 @@
             display: flex; 
             box-sizing: border-box;
             position: relative;
-            mix-blend-mode: multiply; /* White side backgrounds ko clean transparent banata hai */
         }
 
         .dairy-side {
             flex: 1; 
-            overflow: hidden; 
             box-sizing: border-box;
             font-family: 'Dancing Script', cursive; 
             color: #2b1a0d; 
@@ -303,24 +307,25 @@
             text-align: left;
         }
 
-        /* Text positioning adjustments for paper pages */
+        /* Safe padding context for precise text placement */
         .dairy-side.side-left {
-            padding: 35px 35px 20px 45px;
+            padding: 55px 35px 50px 55px;
         }
 
         .dairy-side.side-right {
-            padding: 35px 45px 20px 35px;
+            padding: 55px 55px 50px 35px;
         }
 
         .dairy-side span {
             width: 100%;
-            font-size: 1.35rem; 
-            line-height: 1.35;
+            font-size: 1.5rem; 
+            line-height: 1.45;
             font-weight: 700;
             word-wrap: break-word;
+            display: block;
         }
 
-        .diary-nav-bar { display: flex; justify-content: space-between; width: 100%; margin-top: 15px; box-sizing: border-box; padding: 0 5px; }
+        .diary-nav-bar { display: flex; justify-content: space-between; width: 100%; margin-top: 20px; box-sizing: border-box; padding: 0 5px; }
 
         .nav-action-btn {
             padding: 12px 30px; font-size: 0.95rem; font-weight: 700; color: #fff;
@@ -332,7 +337,7 @@
 
         .nav-action-btn:hover { background: rgba(255, 20, 147, 1); box-shadow: 0 0 25px rgba(255, 20, 147, 0.5); transform: scale(1.04); }
 
-        /* --- FIXED SURPRISE IMAGE SCREEN (SAME AS MAIN BG) --- */
+        /* --- FIXED SURPRISE IMAGE SCREEN --- */
         #image-screen {
             display: none;
             z-index: 15;
@@ -390,15 +395,15 @@
             .simple-text { font-size: 2.3rem; }
             .para-box { font-size: 0.85rem; padding: 12px; }
             #timer-container { font-size: 6rem; }
-            .dairy-container-block { width: 96%; transform: translate(-50%, -42%); top: 52%; }
-            .dairy-side.side-left { padding: 22px 20px 10px 32px; }
-            .dairy-side.side-right { padding: 22px 32px 10px 20px; }
-            .dairy-side span { font-size: 0.95rem; line-height: 1.25; }
+            .dairy-container-block { width: 96%; transform: translate(-50%, -47%); top: 50%; }
+            .dairy-side.side-left { padding: 38px 24px 28px 42px; }
+            .dairy-side.side-right { padding: 38px 42px 28px 24px; }
+            .dairy-side span { font-size: 1.02rem; line-height: 1.32; }
             .candles-box { gap: 40px; margin-bottom: -4px; } 
             .candle { width: 18px; height: 52px; }
             .candle.center-candle { height: 70px; width: 21px; }
             .nav-action-btn { padding: 10px 20px; font-size: 0.8rem; }
-            .diary-nav-bar { margin-top: 10px; }
+            .diary-nav-bar { margin-top: 15px; }
             .img-overlay-nav { bottom: 20px; }
             .img-nav-btn { padding: 10px 25px; font-size: 0.8rem; }
         }
@@ -450,9 +455,11 @@
                 <div class="candle"><div class="wick"></div><div class="flame"></div></div>
             </div>
 
-            <div class="dairy-layout">
-                <div class="dairy-side side-left" id="page-left"></div>
-                <div class="dairy-side side-right" id="page-right"></div>
+            <div class="dairy-layout-wrapper">
+                <div class="dairy-layout">
+                    <div class="dairy-side side-left" id="page-left"></div>
+                    <div class="dairy-side side-right" id="page-right"></div>
+                </div>
             </div>
 
             <div class="diary-nav-bar">
