@@ -315,18 +315,18 @@
 
         .nav-action-btn:hover { background: rgba(255, 20, 147, 1); box-shadow: 0 0 25px rgba(255, 20, 147, 0.5); transform: scale(1.04); }
 
-        /* --- NEW SURPRISE IMAGE SCREEN (FIT BACKGROUND SYSTEM) --- */
+        /* --- FIXED SURPRISE IMAGE SCREEN (SAME AS MAIN BG) --- */
         #image-screen {
             display: none;
             z-index: 15;
             background: #000;
         }
 
-        /* Yahan se purana filter remove kar diya gaya hai aur object-fit contain rakha hai takay image clear aur saaf dikhe */
+        /* Object-fit ko cover kiya takay poori screen par fit aye bina crop ya gaps ke */
         .surprise-display-img {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: contain;
+            object-fit: cover;
             z-index: -1;
             pointer-events: none;
         }
@@ -484,6 +484,7 @@
             const vw = window.innerWidth;
             document.body.style.height = vh + 'px';
             mainContent.style.height = vh + 'px';
+            imageScreen.style.height = vh + 'px'; /* Image screen size fix */
             canvas.width = vw;
             canvas.height = vh;
         }
@@ -542,6 +543,7 @@
                 imageScreen.style.display = 'block';
                 imageScreen.offsetHeight;
                 imageScreen.classList.remove('hidden');
+                fixEverything();
             }, 800);
         });
 
