@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -199,7 +197,7 @@
         #diary-content {
             display: none;
             z-index: 12;
-            background: #ffffff; 
+            background: #fffdf4; 
         }
 
         .ambient-glow {
@@ -241,9 +239,9 @@
 
         .dairy-container-block {
             position: absolute;
-            top: 52%; left: 50%;
+            top: 54%; left: 50%;
             transform: translate(-50%, -45%);
-            width: 92%; max-width: 660px;
+            width: 95%; max-width: 660px;
             display: flex; flex-direction: column; align-items: center;
             z-index: 54;
         }
@@ -276,36 +274,53 @@
             100% { transform: translateX(-50%) scale(1.05) rotate(1.5deg); }
         }
 
+        /* --- NEW SPIRAL PINK DIARY BACKGROUND --- */
         .dairy-layout {
-            width: 100%; height: auto; background: #361b07; border-radius: 14px;
-            display: flex; padding: 10px 14px 18px 14px; box-sizing: border-box;
-            box-shadow: 0 25px 55px rgba(0,0,0,0.25), inset 0 0 15px rgba(0,0,0,0.7), 0 4px 0 #ebdcb2, 0 8px 0 #1f0f04, 0 9px 0 #ebdcb2, 0 14px 0 rgba(0,0,0,0.1);
+            width: 100%; 
+            aspect-ratio: 660 / 440;
+            background-image: url('https://i.ibb.co/LDqZdjnR/99bea3f5f4362cc682ac1c6a55ed2113.jpg');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            display: flex; 
+            box-sizing: border-box;
             position: relative;
-        }
-
-        .dairy-layout::before {
-            content: ''; position: absolute; left: 50%; top: 0; width: 6px; height: 100%; transform: translateX(-50%);
-            background: linear-gradient(to right, rgba(0,0,0,0.3), rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.3)); z-index: 10;
+            mix-blend-mode: multiply; /* White side backgrounds ko clean transparent banata hai */
         }
 
         .dairy-side {
-            flex: 1; padding: 25px 20px; overflow: hidden; box-sizing: border-box;
-            font-family: 'Dancing Script', cursive; font-size: 1.5rem; line-height: 1.45;
-            color: #2b1a0d; background: #fffdf4; position: relative; z-index: 2;
-            display: flex; align-items: center; justify-content: center; text-align: left;
+            flex: 1; 
+            overflow: hidden; 
+            box-sizing: border-box;
+            font-family: 'Dancing Script', cursive; 
+            color: #2b1a0d; 
+            background: transparent; 
+            position: relative; 
+            z-index: 2;
+            display: flex; 
+            align-items: flex-start; 
+            justify-content: center; 
+            text-align: left;
         }
 
+        /* Text positioning adjustments for paper pages */
         .dairy-side.side-left {
-            border-radius: 6px 0 0 6px; border-right: 1px solid rgba(0, 0, 0, 0.12);
-            box-shadow: inset 15px 0 25px rgba(0,0,0,0.05), inset -5px 0 12px rgba(184, 153, 106, 0.15), -2px 0 0 #ebdcb2;
+            padding: 35px 35px 20px 45px;
         }
 
         .dairy-side.side-right {
-            border-radius: 0 6px 6px 0;
-            box-shadow: inset -15px 0 25px rgba(0,0,0,0.05), inset 5px 0 12px rgba(184, 153, 106, 0.15), 2px 0 0 #ebdcb2;
+            padding: 35px 45px 20px 35px;
         }
 
-        .diary-nav-bar { display: flex; justify-content: space-between; width: 100%; margin-top: 25px; box-sizing: border-box; padding: 0 5px; }
+        .dairy-side span {
+            width: 100%;
+            font-size: 1.35rem; 
+            line-height: 1.35;
+            font-weight: 700;
+            word-wrap: break-word;
+        }
+
+        .diary-nav-bar { display: flex; justify-content: space-between; width: 100%; margin-top: 15px; box-sizing: border-box; padding: 0 5px; }
 
         .nav-action-btn {
             padding: 12px 30px; font-size: 0.95rem; font-weight: 700; color: #fff;
@@ -324,7 +339,6 @@
             background: #000;
         }
 
-        /* Object-fit ko cover kiya takay poori screen par fit aye bina crop ya gaps ke */
         .surprise-display-img {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -376,14 +390,15 @@
             .simple-text { font-size: 2.3rem; }
             .para-box { font-size: 0.85rem; padding: 12px; }
             #timer-container { font-size: 6rem; }
-            .dairy-container-block { width: 94%; transform: translate(-50%, -45%); top: 52%; }
-            .dairy-layout { padding: 6px 8px 12px 8px; }
-            .dairy-side { font-size: 1.15rem; padding: 15px 12px; line-height: 1.4; }
+            .dairy-container-block { width: 96%; transform: translate(-50%, -42%); top: 52%; }
+            .dairy-side.side-left { padding: 22px 20px 10px 32px; }
+            .dairy-side.side-right { padding: 22px 32px 10px 20px; }
+            .dairy-side span { font-size: 0.95rem; line-height: 1.25; }
             .candles-box { gap: 40px; margin-bottom: -4px; } 
-            .candle { width: 18px; height: 58px; }
-            .candle.center-candle { height: 78px; width: 21px; }
+            .candle { width: 18px; height: 52px; }
+            .candle.center-candle { height: 70px; width: 21px; }
             .nav-action-btn { padding: 10px 20px; font-size: 0.8rem; }
-            .diary-nav-bar { margin-top: 15px; }
+            .diary-nav-bar { margin-top: 10px; }
             .img-overlay-nav { bottom: 20px; }
             .img-nav-btn { padding: 10px 25px; font-size: 0.8rem; }
         }
@@ -486,7 +501,7 @@
             const vw = window.innerWidth;
             document.body.style.height = vh + 'px';
             mainContent.style.height = vh + 'px';
-            imageScreen.style.height = vh + 'px'; /* Image screen size fix */
+            imageScreen.style.height = vh + 'px';
             canvas.width = vw;
             canvas.height = vh;
         }
@@ -515,7 +530,6 @@
             startCountdown();
         });
 
-        // MAIN -> DIARY VIEW TRANSITION
         triggerDairyBtn.addEventListener('click', () => {
             mainContent.classList.add('hidden');
             setTimeout(() => {
@@ -526,7 +540,6 @@
             }, 800);
         });
 
-        // DIARY -> MAIN VIEW TRANSITION
         prevBtn.addEventListener('click', () => {
             diaryContent.classList.add('hidden');
             setTimeout(() => {
@@ -537,7 +550,6 @@
             }, 800);
         });
 
-        // DIARY -> IMAGE SCREEN VIEW TRANSITION
         nextBtn.addEventListener('click', () => {
             diaryContent.classList.add('hidden');
             setTimeout(() => {
@@ -549,7 +561,6 @@
             }, 800);
         });
 
-        // IMAGE -> DIARY VIEW TRANSITION
         imgBackBtn.addEventListener('click', () => {
             imageScreen.classList.add('hidden');
             setTimeout(() => {
@@ -560,7 +571,6 @@
             }, 800);
         });
 
-        // BULBS GENERATOR
         function createStringBulbs() {
             const layer1 = document.getElementById('bulbs-layer-1');
             const layer2 = document.getElementById('bulbs-layer-2');
@@ -585,7 +595,6 @@
         }
         createStringBulbs();
 
-        // PARAGRAPH DISTRIBUTOR
         function divideParagraphContent() {
             const paragraphText = "Anoosha, Look at you yrrr itni haseen itni pure heart wali lrkiiii, your mom and dad must be so proud of you fr. And me? Mai tou bohat zyada proud hu ke meri life mai tm ho. I promise mai hamesha tmhara sath du ga, tmhy pyar kru ga or har situation mai tmhy special feel krwau ga because tm sirf meri favorite person nhi ho tm meri aadat ban chuki hooo💖";
             
@@ -600,7 +609,6 @@
         }
         divideParagraphContent();
 
-        // MATRIX EFFECT
         const dotSize = 4.5;
         const spacing = 15;
         let columns = Math.floor(canvas.width / spacing);
