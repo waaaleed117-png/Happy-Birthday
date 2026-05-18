@@ -193,7 +193,7 @@
             50% { transform: translateY(-6px); }
         }
 
-        /* --- DIARY SCREEN SPECIFIC STYLES (CHANGED TO WHITE BACKGROUND) --- */
+        /* --- DIARY SCREEN SPECIFIC STYLES --- */
         #diary-content {
             display: none;
             z-index: 12;
@@ -315,45 +315,30 @@
 
         .nav-action-btn:hover { background: rgba(255, 20, 147, 1); box-shadow: 0 0 25px rgba(255, 20, 147, 0.5); transform: scale(1.04); }
 
-        /* --- NEW VIDEO SCREEN SYSTEM --- */
-        #video-screen {
+        /* --- NEW SURPRISE IMAGE SCREEN (FIT BACKGROUND SYSTEM) --- */
+        #image-screen {
             display: none;
             z-index: 15;
-            background: #000000;
+            background: #000;
         }
 
-        .video-viewer-container {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .uploaded-story-video {
-            width: 100%; height: 100%;
-            object-fit: contain;
-            z-index: 60;
-        }
-
-        .video-overlay-nav {
+        .img-overlay-nav {
             position: absolute;
             bottom: 30px; left: 0; width: 100%;
-            display: flex; justify-content: space-between;
+            display: flex; justify-content: center;
             box-sizing: border-box; padding: 0 25px;
-            z-index: 65; pointer-events: none;
+            z-index: 70; pointer-events: none;
         }
 
-        .video-nav-btn {
-            padding: 12px 25px; font-size: 0.85rem; font-weight: 700; color: #fff;
-            background: rgba(255, 20, 147, 0.85); border: none; border-radius: 30px;
-            cursor: pointer; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        .img-nav-btn {
+            padding: 12px 40px; font-size: 0.95rem; font-weight: 700; color: #fff;
+            background: rgba(255, 20, 147, 0.85); border: 2px solid rgba(255, 20, 147, 0.9); border-radius: 30px;
+            cursor: pointer; box-shadow: 0 0 15px rgba(255, 20, 147, 0.2);
             transition: all 0.3s ease; font-family: 'Montserrat', sans-serif;
             text-transform: uppercase; letter-spacing: 1px; pointer-events: auto;
         }
 
-        .video-nav-btn:hover { background: rgba(255, 20, 147, 1); transform: scale(1.05); }
+        .img-nav-btn:hover { background: rgba(255, 20, 147, 1); box-shadow: 0 0 25px rgba(255, 20, 147, 0.5); transform: scale(1.04); }
 
         /* GENERAL HEARTS SHIFT */
         .heart {
@@ -388,8 +373,8 @@
             .candle.center-candle { height: 78px; width: 21px; }
             .nav-action-btn { padding: 10px 20px; font-size: 0.8rem; }
             .diary-nav-bar { margin-top: 15px; }
-            .video-overlay-nav { bottom: 20px; padding: 0 15px; }
-            .video-nav-btn { padding: 10px 18px; font-size: 0.75rem; }
+            .img-overlay-nav { bottom: 20px; }
+            .img-nav-btn { padding: 10px 25px; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -451,15 +436,10 @@
         </div>
     </div>
 
-    <div id="video-screen" class="view-section hidden">
-        <div class="video-viewer-container">
-            <video id="story-display-video" class="uploaded-story-video" autoplay loop muted playsinline>
-                <source src="https://streamable.com/e/pswjcw?autoplay=1&muted=1" type="video/mp4">
-            </video>
-            <div class="video-overlay-nav">
-                <button class="video-nav-btn" id="video-back-btn">← Diary</button>
-                <button class="video-nav-btn" id="video-next-btn">Next ❤️</button>
-            </div>
+    <div id="image-screen" class="view-section hidden">
+        <img src="https://i.ibb.co/pvBJw9fC/IMG-20260517-164506-307.jpg" alt="Surprise Image" class="bg-image" style="filter: brightness(0.85);">
+        <div class="img-overlay-nav">
+            <button class="img-nav-btn" id="img-back-btn">← Diary</button>
         </div>
     </div>
 
@@ -468,8 +448,7 @@
         const ctx = canvas.getContext('2d');
         const mainContent = document.getElementById('main-content');
         const diaryContent = document.getElementById('diary-content');
-        const videoScreen = document.getElementById('video-screen');
-        const storyVideo = document.getElementById('story-display-video');
+        const imageScreen = document.getElementById('image-screen');
         
         const music = document.getElementById('bg-music');
         const startBtn = document.getElementById('start-btn');
@@ -479,8 +458,7 @@
         
         const prevBtn = document.getElementById('prev-page-btn');
         const nextBtn = document.getElementById('next-page-btn');
-        const videoBackBtn = document.getElementById('video-back-btn');
-        const videoNextBtn = document.getElementById('video-next-btn');
+        const imgBackBtn = document.getElementById('img-back-btn');
 
         let audioCtx;
         function initAudio() {
@@ -547,33 +525,26 @@
             }, 800);
         });
 
-        // DIARY -> VIDEO SCREEN VIEW TRANSITION (SAFE ATTACHMENT point)
+        // DIARY -> IMAGE SCREEN VIEW TRANSITION
         nextBtn.addEventListener('click', () => {
             diaryContent.classList.add('hidden');
             setTimeout(() => {
                 diaryContent.style.display = 'none';
-                videoScreen.style.display = 'block';
-                videoScreen.offsetHeight;
-                videoScreen.classList.remove('hidden');
-                storyVideo.play().catch(err => console.log("Video active."));
+                imageScreen.style.display = 'block';
+                imageScreen.offsetHeight;
+                imageScreen.classList.remove('hidden');
             }, 800);
         });
 
-        // VIDEO -> DIARY VIEW TRANSITION
-        videoBackBtn.addEventListener('click', () => {
-            videoScreen.classList.add('hidden');
-            storyVideo.pause();
+        // IMAGE -> DIARY VIEW TRANSITION
+        imgBackBtn.addEventListener('click', () => {
+            imageScreen.classList.add('hidden');
             setTimeout(() => {
-                videoScreen.style.display = 'none';
+                imageScreen.style.display = 'none';
                 diaryContent.style.display = 'block';
                 diaryContent.offsetHeight;
                 diaryContent.classList.remove('hidden');
             }, 800);
-        });
-
-        // FUTURE ACTION TRIGGER
-        videoNextBtn.addEventListener('click', () => {
-            console.log("Next page click captured perfectly.");
         });
 
         // BULBS GENERATOR
