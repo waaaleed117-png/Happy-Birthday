@@ -197,7 +197,7 @@
         #diary-content {
             display: none;
             z-index: 12;
-            background: transparent; 
+            background: #fff; 
         }
 
         .ambient-glow {
@@ -240,7 +240,7 @@
         .dairy-container-block {
             position: absolute;
             top: 50%; left: 50%;
-            transform: translate(-50%, -46%);
+            transform: translate(-50%, -50%);
             width: 95%; max-width: 680px;
             display: flex; flex-direction: column; align-items: center;
             z-index: 54;
@@ -248,7 +248,7 @@
 
         .candles-box {
             display: flex; justify-content: center; align-items: flex-end; gap: 60px;
-            margin-bottom: -5px; z-index: 55; width: 100%;
+            margin-bottom: 5px; z-index: 55; width: 100%;
         }
 
         .candle {
@@ -274,17 +274,17 @@
             100% { transform: translateX(-50%) scale(1.05) rotate(1.5deg); }
         }
 
-        /* --- STABLE DIARY BLOCK TO PREVENT OVERFLOW OUTSIDE LINES --- */
+        /* --- DIARY CONTAINER SYSTEM WITH HIGH CAPACITY HEIGHT --- */
         .dairy-layout-wrapper {
             width: 100%;
-            mix-blend-mode: multiply; 
             display: flex;
             justify-content: center;
         }
 
         .dairy-layout {
             width: 100%; 
-            background-image: url('https://i.ibb.co/LDqZdjnR/99bea3f5f4362cc682ac1c6a55ed2113.jpg');
+            min-height: 480px;
+            background-image: url('https://i.ibb.co/ymm73PWd/IMG-20260518-211159.png');
             background-size: 100% 100%;
             background-repeat: no-repeat;
             background-position: center;
@@ -307,7 +307,7 @@
             text-align: left;
         }
 
-        /* Safe padding context for precise text placement */
+        /* Precise Safe Padding Context to Avoid Any Boundaries Overflow */
         .dairy-side.side-left {
             padding: 55px 35px 50px 55px;
         }
@@ -318,8 +318,8 @@
 
         .dairy-side span {
             width: 100%;
-            font-size: 1.5rem; 
-            line-height: 1.45;
+            font-size: 1.55rem; 
+            line-height: 1.48;
             font-weight: 700;
             word-wrap: break-word;
             display: block;
@@ -395,11 +395,12 @@
             .simple-text { font-size: 2.3rem; }
             .para-box { font-size: 0.85rem; padding: 12px; }
             #timer-container { font-size: 6rem; }
-            .dairy-container-block { width: 96%; transform: translate(-50%, -47%); top: 50%; }
-            .dairy-side.side-left { padding: 38px 24px 28px 42px; }
-            .dairy-side.side-right { padding: 38px 42px 28px 24px; }
-            .dairy-side span { font-size: 1.02rem; line-height: 1.32; }
-            .candles-box { gap: 40px; margin-bottom: -4px; } 
+            .dairy-container-block { width: 96%; transform: translate(-50%, -50%); top: 50%; }
+            .dairy-layout { min-height: 340px; }
+            .dairy-side.side-left { padding: 34px 22px 25px 36px; }
+            .dairy-side.side-right { padding: 34px 36px 25px 22px; }
+            .dairy-side span { font-size: 1.05rem; line-height: 1.34; }
+            .candles-box { gap: 40px; margin-bottom: 2px; } 
             .candle { width: 18px; height: 52px; }
             .candle.center-candle { height: 70px; width: 21px; }
             .nav-action-btn { padding: 10px 20px; font-size: 0.8rem; }
