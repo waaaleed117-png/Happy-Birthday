@@ -203,43 +203,38 @@
         .ambient-glow {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 22%, rgba(253, 180, 70, 0.15) 0%, transparent 65%);
+            background: radial-gradient(circle at 50% 22%, rgba(253, 180, 70, 0.2) 0%, transparent 70%);
             pointer-events: none;
             z-index: 52;
         }
 
-        .string-lights {
+        /* NEW CUSTOM LIGHTS DESIGN WITH REAL IMAGES */
+        .string-lights-container {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 130px;
+            top: 0; left: 0; width: 100%; height: 220px;
             z-index: 56;
             pointer-events: none;
-            /* Lights ke piche background ambient panel takay brightness saaf dikhe */
-            background: linear-gradient(180deg, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.03) 60%, transparent 100%);
+            background: radial-gradient(ellipse at top, rgba(253, 203, 110, 0.2) 0%, transparent 60%);
         }
 
-        .light-wire {
+        .fairy-lights-img {
             position: absolute;
-            width: 110%; height: 40px;
-            /* Wires ko perfect dark black kiya taake visibility achhi ho */
-            border: solid 2px #000000; 
-            border-color: #000000 transparent transparent transparent;
-            border-radius: 50%/20px 20px 0 0;
-            left: -5%;
+            top: -15px; left: 0; width: 100%; height: 130px;
+            object-fit: fill;
+            filter: brightness(1.1) drop-shadow(0 2px 10px rgba(253, 203, 110, 0.8));
         }
-        /* Rotations perfectly aligned to match standard quadratic curves of javascript */
-        .wire-1 { top: -2px; }
-        .wire-2 { top: 22px; }
 
-        .bulb-group { position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
-        .bulb {
+        .hanging-lamp {
             position: absolute;
-            width: 8px; height: 14px;
-            background: #fff5cc;
-            border-radius: 50% 50% 40% 40% / 40% 40% 60% 60%;
-            box-shadow: 0 0 12px 4px #fdcb6e, 0 0 20px 8px rgba(253, 203, 110, 0.4);
-            animation: warmGlow 1.5s ease-in-out infinite alternate;
+            top: 0;
+            width: 75px;
+            height: auto;
+            z-index: 57;
+            filter: brightness(0.95) drop-shadow(0 5px 15px rgba(253, 180, 70, 0.5));
         }
-        .bulb::before { content: ''; position: absolute; top: -3px; left: 2px; width: 4px; height: 3px; background: #000; }
+
+        .lamp-left { left: 4%; }
+        .lamp-right { right: 4%; }
 
         .dairy-container-block {
             position: absolute;
@@ -377,6 +372,10 @@
             .simple-text { font-size: 2.3rem; }
             .para-box { font-size: 0.85rem; padding: 12px; }
             #timer-container { font-size: 6rem; }
+            .fairy-lights-img { height: 90px; top: -5px; }
+            .hanging-lamp { width: 50px; }
+            .lamp-left { left: 1%; }
+            .lamp-right { right: 1%; }
             .dairy-container-block { width: 94%; transform: translate(-50%, -45%); top: 52%; }
             .dairy-layout { padding: 6px 8px 12px 8px; }
             .dairy-side { font-size: 1.15rem; padding: 15px 12px; line-height: 1.4; }
@@ -421,12 +420,10 @@
     <div id="diary-content" class="view-section hidden">
         <div class="ambient-glow"></div>
         
-        <div class="string-lights">
-            <div class="light-wire wire-1"></div>
-            <div class="bulb-group" id="bulbs-layer-1"></div>
-            
-            <div class="light-wire wire-2"></div>
-            <div class="bulb-group" id="bulbs-layer-2"></div>
+        <div class="string-lights-container">
+            <img src="https://i.ibb.co/Fb7HCjCG/IMG-20260518-203916.jpg" alt="Fairy Lights" class="fairy-lights-img">
+            <img src="https://i.ibb.co/5XhrSr58/5263411a306a103c974d3d0effd4da23.jpg" alt="Hanging Lamp Left" class="hanging-lamp lamp-left">
+            <img src="https://i.ibb.co/5XhrSr58/5263411a306a103c974d3d0effd4da23.jpg" alt="Hanging Lamp Right" class="hanging-lamp lamp-right">
         </div>
         
         <div class="dairy-container-block">
@@ -487,7 +484,7 @@
             const vw = window.innerWidth;
             document.body.style.height = vh + 'px';
             mainContent.style.height = vh + 'px';
-            imageScreen.style.height = vh + 'px';
+            imageScreen.style.height = vh + 'px'; 
             canvas.width = vw;
             canvas.height = vh;
         }
@@ -561,35 +558,6 @@
             }, 800);
         });
 
-        // BULBS GENERATOR (Mathematically synced with wire tops and arc spacing)
-        function createStringBulbs() {
-            const layer1 = document.getElementById('bulbs-layer-1');
-            const layer2 = document.getElementById('bulbs-layer-2');
-            
-            // Layer 1 - Synced perfectly onto wire-1
-            for (let i = 0; i <= 10; i++) {
-                const bulb = document.createElement('div');
-                bulb.className = 'bulb';
-                bulb.style.left = (i * 10) + '%';
-                // curve height matches wire 1's border-radius arc top limits
-                bulb.style.top = (Math.sin((i / 10) * Math.PI) * 20 - 2) + 'px';
-                bulb.style.animationDelay = (i * 0.15) + 's';
-                layer1.appendChild(bulb);
-            }
-
-            // Layer 2 - Synced perfectly onto wire-2
-            for (let i = 0; i <= 8; i++) {
-                const bulb = document.createElement('div');
-                bulb.className = 'bulb';
-                bulb.style.left = (5 + (i * 11.2)) + '%';
-                // curve height matches wire 2's border-radius arc top limits
-                bulb.style.top = (Math.sin((i / 8) * Math.PI) * 20 + 22) + 'px';
-                bulb.style.animationDelay = (i * 0.2) + 's';
-                layer2.appendChild(bulb);
-            }
-        }
-        createStringBulbs();
-
         // PARAGRAPH DISTRIBUTOR
         function divideParagraphContent() {
             const paragraphText = "Anoosha, Look at you yrrr itni haseen itni pure heart wali lrkiiii, your mom and dad must be so proud of you fr. And me? Mai tou bohat zyada proud hu ke meri life mai tm ho. I promise mai hamesha tmhara sath du ga, tmhy pyar kru ga or har situation mai tmhy special feel krwau ga because tm sirf meri favorite person nhi ho tm meri aadat ban chuki hooo💖";
@@ -654,7 +622,7 @@
             clearInterval(matrixInterval);
             canvas.style.display = 'none';
             timerElement.style.display = 'none';
-            document.body.style.backgroundColor = "#fff"; 
+            document.body.style.backgroundColor = "#000"; 
             mainContent.style.display = 'block';
             setInterval(createHearts, 1200); 
             fixEverything();
